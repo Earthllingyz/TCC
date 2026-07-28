@@ -1,0 +1,198 @@
+.perfil-container{
+    min-height:100vh;
+    background:#f8fafc;
+  
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  
+    padding:30px;
+  }
+  
+  .perfil-card{
+    width:700px;
+    max-width:100%;
+
+    position: relative;
+  
+    background:white;
+  
+    border-radius:25px;
+  
+    padding:30px;
+  
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+  }
+  
+  .perfil-topo{
+    text-align:center;
+  
+    margin-bottom:30px;
+  }
+  
+  .perfil-avatar{
+    font-size:90px;
+  
+    color:#2563eb;
+  }
+  
+  .perfil-topo h1{
+    color:#111827;
+  
+    margin-top:15px;
+  }
+  
+  .info-box{
+    border:1px solid #e5e7eb;
+  
+    border-radius:15px;
+  
+    padding:18px;
+  
+    margin-bottom:20px;
+  }
+  
+  .info-header{
+    display:flex;
+  
+    justify-content:space-between;
+  
+    align-items:center;
+  
+    margin-bottom:10px;
+  }
+  
+  .info-header span{
+    font-weight:700;
+  
+    color:#111827;
+  }
+  
+  .info-box p{
+    color:#374151;
+  
+    font-size:18px;
+  }
+  
+  .icon-action{
+    border:none;
+  
+    background:none;
+  
+    cursor:pointer;
+  
+    color:#2563eb;
+  
+    font-size:18px;
+  }
+  
+  .acoes-senha{
+    display:flex;
+    gap:10px;
+  }
+
+  .editar-email-body{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  
+  .editar-email-body label{
+    font-weight:600;
+    color:#1e3a8a;
+    margin-top:10px;
+  }
+  
+  .editar-email-body input{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:15px;
+    box-sizing:border-box;
+  }
+  
+  .editar-email-body input:focus{
+    outline:none;
+    border-color:#2563eb;
+  }
+  
+  .editar-email-body .erro{
+    color:#dc2626;
+    font-size:14px;
+    margin-top:-5px;
+  }
+  
+  .editar-email-body .publicar-btn{
+    margin-top:20px;
+  }
+
+  .titulo-modal{
+    color:#1e3a8a;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:15px;
+  }
+
+  .metodo-senha-body{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  
+  .metodo-senha-body p{
+    margin-bottom:10px;
+  }
+  
+  .metodo-senha-body button{
+    margin-top:5px;
+  }
+
+  .dica-campo {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+    margin-bottom: 10px;
+  }
+
+  .fechar-perfil-btn {
+
+    position: absolute;
+  
+    top: 15px;
+    right: 15px;
+  
+    width: 40px;
+    height: 40px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    padding: 0;
+  
+    border: none;
+  
+    border-radius: 50%;
+  
+    cursor: pointer;
+  
+    font-size: 20px;
+    font-weight: bold;
+  
+    line-height: 1;
+  
+    background: #e53935;
+  
+    color: white;
+  
+    transition: 0.2s;
+  
+  }
+  
+  .fechar-perfil-btn:hover {
+  
+    transform: scale(1.05);
+  
+  }

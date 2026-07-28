@@ -1,0 +1,147 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+  }
+  
+  .login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+      135deg,
+      #0E7490,
+      #2563EB
+    );
+  }
+  
+  .login-card{
+    width:420px;
+    background:rgba(255,255,255,0.95);
+    padding:40px;
+    border-radius:30px;
+    text-align:center;
+    box-shadow:0 25px 60px rgba(0,0,0,.18);
+    backdrop-filter:blur(10px);
+}
+  
+  .logo{
+    width:130px;
+    margin-bottom:15px;
+  }
+
+  .login-card h1{
+    color:#0E7490;
+    margin-bottom:10px;
+    font-weight:700;
+}
+  
+  .subtitle{
+    color:#64748B;
+    margin-bottom:20px;
+  }
+  
+  form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+  }
+  
+  input{
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:12px;
+  }
+  
+  button{
+    background:#10B981;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    cursor:pointer;
+  }
+
+  .tipo-usuario{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.tipo-btn{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#E2E8F0;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.tipo-btn.ativo{
+    background:#0E7490;
+    color:white;
+}
+
+.entrar-btn{
+    background:#10B981;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.cadastro{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.cadastro span{
+    color:#64748B;
+}
+
+.cadastro a{
+    text-decoration:none;
+    color:#2563EB;
+    font-weight:600;
+}
+
+.tipo-selecionado{
+    margin-bottom:15px;
+    color:#475569;
+}
+
+.erro{
+
+  color:#e53935;
+  
+  font-size:13px;
+  
+  margin-top:4px;
+  
+  margin-bottom:10px;
+  
+  font-weight:600;
+  
+  }
+
+  .erro-geral{
+
+    color:#d32f2f;
+    
+    font-size:15px;
+    
+    font-weight:600;
+    
+    text-align:center;
+    
+    margin:15px 0;
+    
+    }

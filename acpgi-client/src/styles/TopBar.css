@@ -1,0 +1,162 @@
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:30px;
+  }
+  
+  .search-box{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:white;
+    padding:14px 18px;
+    border-radius:14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+  }
+  
+  .search-box input{
+    width:100%;
+    border:none;
+    outline:none;
+    font-size:15px;
+  }
+  
+  .topbar-actions{
+    display:flex;
+    gap:12px;
+  }
+  
+  .icon-btn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:14px;
+    background:white;
+    cursor:pointer;
+    font-size:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+  }
+
+  .icon-btn{
+    border:none;
+    background:transparent;
+    cursor:pointer;
+  
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  
+    width:42px;
+    height:42px;
+  
+    font-size:20px;
+    color:#374151;
+  }
+  
+  .icon-btn:hover{
+    background:#f3f4f6;
+    border-radius:50%;
+  }
+
+  .menu-wrapper{
+    position:relative;
+  }
+  
+  .dropdown-menu{
+    position:absolute;
+  
+    top:50px;
+    right:0;
+  
+    background:white;
+  
+    min-width:180px;
+  
+    border-radius:12px;
+  
+    box-shadow:
+      0 10px 25px rgba(0,0,0,0.12);
+  
+    padding:10px;
+  
+    display:flex;
+    flex-direction:column;
+  
+    gap:8px;
+  
+    z-index:10000;
+  }
+  
+  .dropdown-menu button{
+    border:none;
+    background:none;
+  
+    padding:10px;
+  
+    text-align:left;
+  
+    cursor:pointer;
+  
+    border-radius:8px;
+  }
+  
+  .dropdown-menu button:hover{
+    background:#f3f4f6;
+  }
+  
+  .dropdown-menu p{
+    margin:0;
+    padding:10px;
+  }
+
+  .dropdown-menu button{
+    color:#111827;
+  
+    font-size:15px;
+  
+    font-weight:600;
+  
+    background:none;
+  
+    border:none;
+  
+    text-align:left;
+  
+    padding:10px;
+  
+    cursor:pointer;
+  
+    border-radius:8px;
+  }
+  
+  .dropdown-menu button:hover{
+    background:#f3f4f6;
+  }
+  
+  .menu-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  
+    padding-bottom:10px;
+  
+    margin-bottom:10px;
+  
+    border-bottom:1px solid #e5e7eb;
+  }
+  
+  .menu-header h4{
+    margin:0;
+    color:#111827;
+  }
+  
+  .menu-close{
+    color:#111827 !important;
+  
+    font-size:18px;
+  
+    font-weight:bold;
+  }

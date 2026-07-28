@@ -1,0 +1,51 @@
+.student-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+  }
+  
+  .student-photo{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:15px;
+  }
+  
+  .rating{
+    margin-top:10px;
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    color:#f59e0b;
+  }
+  
+  .status{
+    margin-top:12px;
+    padding:8px;
+    border-radius:10px;
+    font-size:14px;
+  }
+  
+  .disponivel{
+    background:#dcfce7;
+    color:#15803d;
+  }
+  
+  .indisponivel{
+    background:#fee2e2;
+    color:#dc2626;
+  }
+  
+  .perfil-btn{
+    margin-top:15px;
+    width:100%;
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    cursor:pointer;
+  }

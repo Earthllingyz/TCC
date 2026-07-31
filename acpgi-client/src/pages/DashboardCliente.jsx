@@ -10,6 +10,8 @@ import StudentCard from "../components/StudentCard";
 import CriarAlertaModal from "../modals/CriarAlertaModal";
 import FiltroModal from "../modals/FiltroModal";
 
+import estudantes from "../data/Estudantes";
+
 function DashboardCliente() {
 
     const [abrirAlerta, setAbrirAlerta] = useState(false);
@@ -26,44 +28,22 @@ useEffect(() => {
 
 }, []);
     
-  const estudantes = [
-    {
-      id: 1,
-      nome: "Maria Oliveira",
-      faculdade: "USP",
-      semestre: 7,
-      avaliacao: 4.9,
-      disponivel: true,
-      foto:
-        "https://i.pravatar.cc/150?img=1"
-    },
-    {
-      id: 2,
-      nome: "João Silva",
-      faculdade: "PUC",
-      semestre: 8,
-      avaliacao: 4.8,
-      disponivel: true,
-      foto:
-        "https://i.pravatar.cc/150?img=2"
-    },
-    {
-      id: 3,
-      nome: "Ana Costa",
-      faculdade: "Mackenzie",
-      semestre: 6,
-      avaliacao: 4.7,
-      disponivel: true,
-      foto:
-        "https://i.pravatar.cc/150?img=3"
-    }
-  ];
+const estudantesRecomendados = estudantes.filter(
+  (estudante) => estudante.recomendado
+);
 
   return (
     <div className="dashboard-cliente">
 
 <TopBar
   placeholder="Pesquisar estudante..."
+  onPesquisar={(texto) => {
+
+    navigate(
+      `/resultados?pesquisa=${encodeURIComponent(texto)}`
+    );
+
+  }}
   onFiltroClick={() => setAbrirFiltro(true)}
 />
 
@@ -84,22 +64,32 @@ useEffect(() => {
 
       <div className="students-grid">
 
-        {estudantes.map((estudante) => (
+      {estudantesRecomendados.map((estudante) => (
           <StudentCard
-            key={estudante.id}
-            foto={estudante.foto}
-            nome={estudante.nome}
-            faculdade={estudante.faculdade}
-            semestre={estudante.semestre}
-            avaliacao={estudante.avaliacao}
-            disponivel={estudante.disponivel}
-            onPerfil={() =>
-              console.log(
-                "Abrir perfil",
-                estudante.nome
-              )
-            }
-          />
+          key={estudante.id}
+      
+          id={estudante.id}
+      
+          foto={estudante.foto}
+      
+          nome={estudante.nome}
+      
+          genero={estudante.genero}
+      
+          faculdade={estudante.faculdade}
+      
+          semestre={`${estudante.semestre}º semestre`}
+      
+          avaliacao={estudante.avaliacao.media}
+      
+          totalAvaliacoes={estudante.avaliacao.total}
+      
+          disponivel={estudante.disponivel}
+      
+          onPerfil={() =>
+              navigate(`/perfil-estudante/${estudante.id}`)
+          }
+      />
         ))}
 
       </div>

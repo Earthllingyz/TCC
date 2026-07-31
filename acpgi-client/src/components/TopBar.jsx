@@ -15,10 +15,19 @@ import {
 
 function TopBar({
   placeholder = "Pesquisar...",
+  valorPesquisa = "",
+  onPesquisar,
   onFiltroClick,
   onNotificacaoClick,
   onPerfilClick
 }) {
+
+  const [textoPesquisa, setTextoPesquisa] = useState("");
+  useEffect(() => {
+
+    setTextoPesquisa(valorPesquisa);
+  
+  }, [valorPesquisa]);
 
   const [menuPerfil, setMenuPerfil] = useState(false);
 const [menuNotificacoes, setMenuNotificacoes] = useState(false);
@@ -75,12 +84,30 @@ useEffect(() => {
   return (
     <div className="topbar">
       <div className="search-box">
-        <FaSearch />
+      <FaSearch
+  style={{ cursor: "pointer" }}
+  onClick={() =>
+    onPesquisar?.(textoPesquisa)
+  }
+/>
 
         <input
-          type="text"
-          placeholder={placeholder}
-        />
+  type="text"
+  placeholder={placeholder}
+  value={textoPesquisa}
+  onChange={(e) =>
+    setTextoPesquisa(e.target.value)
+  }
+  onKeyDown={(e) => {
+
+    if (e.key === "Enter") {
+
+      onPesquisar?.(textoPesquisa);
+
+    }
+
+  }}
+/>
       </div>
 
       <div className="topbar-actions">

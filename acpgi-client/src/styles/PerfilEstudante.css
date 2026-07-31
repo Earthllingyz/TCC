@@ -1,0 +1,375 @@
+.perfil-container{
+
+    max-width:1100px;
+    
+    margin:auto;
+    
+    padding:40px 25px;
+    
+    }
+
+    .perfil-header{
+
+        display:flex;
+        
+        align-items:center;
+        
+        gap:35px;
+        
+        background:white;
+        
+        padding:30px;
+        
+        border-radius:25px;
+        
+        box-shadow:0 8px 20px rgba(0,0,0,.08);
+        
+        margin-bottom:30px;
+        
+        }
+
+        .perfil-foto{
+
+            width:180px;
+            
+            height:180px;
+            
+            border-radius:50%;
+            
+            object-fit:cover;
+            
+            border:5px solid #2BB673;
+            
+            }
+
+            .perfil-info{
+
+                display:flex;
+                
+                flex-direction:column;
+                
+                gap:12px;
+                
+                }
+
+                .perfil-info h1{
+
+                    font-size:34px;
+                    
+                    color:#184C7D;
+                    
+                    }
+
+                    .perfil-info p{
+
+                        font-size:18px;
+                        
+                        color:#555;
+                        
+                        }
+
+                        .perfil-info h3{
+
+                            font-size:22px;
+                            
+                            color:#F5A623;
+                            
+                            }
+
+                            .perfil-avaliacao{
+
+                                display:flex;
+                                
+                                align-items:center;
+                                
+                                gap:12px;
+                                
+                                margin-top:10px;
+                                
+                                }
+
+                                .rating-stars{
+
+                                    display:flex;
+                                    
+                                    gap:4px;
+                                    
+                                    color:#F5A623;
+                                    
+                                    font-size:22px;
+                                    
+                                    }
+
+                                    .perfil-experiencia{
+
+                                        background:white;
+                                        
+                                        padding:30px;
+                                        
+                                        border-radius:25px;
+                                        
+                                        box-shadow:0 8px 20px rgba(0,0,0,.08);
+                                        
+                                        margin-bottom:30px;
+                                        
+                                        }
+
+                                        .cards-experiencia{
+
+                                            display:flex;
+                                            
+                                            gap:20px;
+                                            
+                                            margin-top:20px;
+                                            
+                                            flex-wrap:wrap;
+                                            
+                                            }
+
+                                            .card-experiencia{
+
+                                                flex:1;
+                                                
+                                                min-width:180px;
+                                                
+                                                background:#f8f8f8;
+                                                
+                                                padding:20px;
+                                                
+                                                border-radius:18px;
+                                                
+                                                text-align:center;
+                                                
+                                                }
+
+                                                .card-experiencia h3{
+
+                                                    color:#184C7D;
+                                                    
+                                                    margin-bottom:12px;
+                                                    
+                                                    }
+
+                                                    .card-experiencia p{
+
+                                                        font-size:24px;
+                                                        
+                                                        font-weight:bold;
+                                                        
+                                                        color:#2BB673;
+                                                        
+                                                        }
+
+                                                        .perfil-agenda{
+
+                                                            background:white;
+                                                            
+                                                            padding:30px;
+                                                            
+                                                            border-radius:25px;
+                                                            
+                                                            box-shadow:0 8px 20px rgba(0,0,0,.08);
+                                                            
+                                                            margin-bottom:30px;
+                                                            
+                                                            }
+
+                                                            .agenda-grid{
+
+                                                                display:flex;
+                                                                
+                                                                flex-wrap:wrap;
+                                                                
+                                                                gap:20px;
+                                                                
+                                                                margin-top:20px;
+                                                                
+                                                                }
+
+                                                                .agenda-card{
+
+                                                                    flex:1;
+                                                                    
+                                                                    min-width:220px;
+                                                                    
+                                                                    background:#F7F9FB;
+                                                                    
+                                                                    border-radius:18px;
+                                                                    
+                                                                    padding:20px;
+                                                                    
+                                                                    }
+
+                                                                    .agenda-card h3{
+
+                                                                        color:#184C7D;
+                                                                        
+                                                                        margin-bottom:15px;
+                                                                        
+                                                                        }
+
+                                                                        .agenda-card p{
+
+                                                                            margin:8px 0;
+                                                                            
+                                                                            font-size:16px;
+                                                                            
+                                                                            color:#444;
+                                                                            
+                                                                            }.perfil-feedbacks{
+
+                                                                                background:white;
+                                                                                
+                                                                                padding:30px;
+                                                                                
+                                                                                border-radius:25px;
+                                                                                
+                                                                                box-shadow:0 8px 20px rgba(0,0,0,.08);
+                                                                                
+                                                                                margin-bottom:30px;
+                                                                                
+                                                                                }
+
+                                                                                .feedbacks-container{
+
+                                                                                    display:flex;
+                                                                                    
+                                                                                    flex-direction:column;
+                                                                                    
+                                                                                    gap:18px;
+                                                                                    
+                                                                                    margin-top:20px;
+                                                                                    
+                                                                                    }
+
+                                                                                    .mostrar-feedbacks{
+
+                                                                                        margin-top:25px;
+                                                                                        
+                                                                                        padding:12px 25px;
+                                                                                        
+                                                                                        border:none;
+                                                                                        
+                                                                                        border-radius:12px;
+                                                                                        
+                                                                                        cursor:pointer;
+                                                                                        
+                                                                                        background:#2BB673;
+                                                                                        
+                                                                                        color:white;
+                                                                                        
+                                                                                        font-weight:bold;
+                                                                                        
+                                                                                        transition:.2s;
+                                                                                        }
+
+                                                                                        .mostrar-feedbacks:hover{
+
+                                                                                            transform:scale(1.03);
+                                                                                            
+                                                                                            }
+
+                                                                                            .horario-item{
+
+                                                                                                display:flex;
+                                                                                                
+                                                                                                justify-content:space-between;
+                                                                                                
+                                                                                                align-items:center;
+                                                                                                
+                                                                                                gap:15px;
+                                                                                                
+                                                                                                margin:12px 0;
+                                                                                                
+                                                                                                }
+
+                                                                                                .btn-agendar{
+
+                                                                                                    background:#2BB673;
+                                                                                                    
+                                                                                                    color:white;
+                                                                                                    
+                                                                                                    border:none;
+                                                                                                    
+                                                                                                    padding:8px 18px;
+                                                                                                    
+                                                                                                    border-radius:10px;
+                                                                                                    
+                                                                                                    cursor:pointer;
+                                                                                                    
+                                                                                                    font-weight:bold;
+                                                                                                    
+                                                                                                    transition:.2s;
+                                                                                                    
+                                                                                                    }
+
+                                                                                                    .btn-agendar:hover{
+
+                                                                                                        transform:scale(1.05);
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .perfil-descricao{
+
+                                                                                                            background:white;
+                                                                                                        
+                                                                                                            padding:30px;
+                                                                                                        
+                                                                                                            border-radius:25px;
+                                                                                                        
+                                                                                                            box-shadow:0 8px 20px rgba(0,0,0,.08);
+                                                                                                        
+                                                                                                            margin-bottom:30px;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .perfil-descricao h2{
+                                                                                                        
+                                                                                                            color:#184C7D;
+                                                                                                        
+                                                                                                            margin-bottom:20px;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .perfil-descricao p{
+                                                                                                        
+                                                                                                            font-size:17px;
+                                                                                                        
+                                                                                                            line-height:1.7;
+                                                                                                        
+                                                                                                            color:#555;
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .feedback-card{
+
+                                                                                                            background:#F7F9FB;
+                                                                                                        
+                                                                                                            padding:20px;
+                                                                                                        
+                                                                                                            border-radius:18px;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .feedback-card p{
+                                                                                                        
+                                                                                                            color:#555;
+                                                                                                        
+                                                                                                            font-size:16px;
+                                                                                                        
+                                                                                                            margin:15px 0;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .feedback-card span{
+                                                                                                        
+                                                                                                            color:#777;
+                                                                                                        
+                                                                                                            font-size:14px;
+                                                                                                        
+                                                                                                        }
+

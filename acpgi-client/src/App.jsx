@@ -11,6 +11,8 @@ import Disponibilidade from "./pages/Disponibilidade";
 import DashboardCliente from "./pages/DashboardCliente";
 import DashboardEstudante from "./pages/DashboardEstudante";
 import MeuPerfil from "./pages/MeuPerfil";
+import Resultados from "./pages/Resultados";
+import PerfilEstudante from "./pages/PerfilEstudante";
 
 function App() {
   return (
@@ -50,6 +52,16 @@ function App() {
 <Route
   path="/meu-perfil"
   element={<MeuPerfil />}
+/>
+
+<Route
+    path="/resultados"
+    element={<Resultados />}
+/>
+
+<Route
+    path="/perfil-estudante/:id"
+    element={<PerfilEstudante />}
 />
 
       </Routes>

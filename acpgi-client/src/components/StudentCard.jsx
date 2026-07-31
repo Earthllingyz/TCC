@@ -31,7 +31,7 @@ function StudentCard({
 
       <p>
 
-{genero === "F" ? "♀ Feminino" : "♂ Masculino"}
+{genero === "Feminino" ? "♀ Feminino" : "♂ Masculino"}
 
 </p>
 

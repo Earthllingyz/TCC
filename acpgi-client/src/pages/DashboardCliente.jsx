@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/dashboardCliente.css";
@@ -18,6 +17,22 @@ function DashboardCliente() {
     const [abrirFiltro, setAbrirFiltro] = useState(false);
     const navigate = useNavigate();
 
+    const [filtros, setFiltros] = useState({
+      faculdade: "",
+      avaliacao: 1,
+      genero: "Todos",
+      dias: []
+  });
+
+    useEffect(() => {
+
+      window.scrollTo({
+          top: 0,
+          behavior: "instant"
+      });
+  
+  }, []);
+
 useEffect(() => {
 
   if (localStorage.getItem("logado") !== "true") {
@@ -28,9 +43,51 @@ useEffect(() => {
 
 }, []);
     
-const estudantesRecomendados = estudantes.filter(
-  (estudante) => estudante.recomendado
-);
+const estudantesRecomendados = estudantes.filter((estudante) => {
+
+  if (!estudante.recomendado) {
+      return false;
+  }
+
+  if (
+      filtros.faculdade &&
+      !estudante.faculdade
+          .toLowerCase()
+          .includes(filtros.faculdade.toLowerCase())
+  ) {
+      return false;
+  }
+
+  if (
+      estudante.avaliacao.media < filtros.avaliacao
+  ) {
+      return false;
+  }
+
+  if (
+      filtros.genero !== "Todos" &&
+      estudante.genero !== filtros.genero
+  ) {
+      return false;
+  }
+
+  if (filtros.dias.length > 0) {
+
+      const possuiDia = estudante.agenda.some((dia)=>
+
+          filtros.dias.includes(dia.dia)
+
+      );
+
+      if(!possuiDia){
+          return false;
+      }
+
+  }
+
+  return true;
+
+});
 
   return (
     <div className="dashboard-cliente">
@@ -100,9 +157,11 @@ const estudantesRecomendados = estudantes.filter(
 />
 
 <FiltroModal
-  aberto={abrirFiltro}
-  fechar={() => setAbrirFiltro(false)}
-/>
+    aberto={abrirFiltro}
+    fechar={() => setAbrirFiltro(false)}
+    filtros={filtros}
+    setFiltros={setFiltros}
+/>har={() => setAbrirFiltro(false)}
 
     </div>
   );

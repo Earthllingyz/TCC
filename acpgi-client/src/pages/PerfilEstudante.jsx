@@ -1,61 +1,37 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import estudantes from "../data/Estudantes";
+import RatingStars from "../components/RatingStars";
+import "../styles/PerfilEstudante.css";
+import SolicitacaoModal from "../modals/SolicitacaoModal";
 
 function PerfilEstudante() {
 
     const { id } = useParams();
-    
+  
     const [solicitacao, setSolicitacao] = useState(null);
-    
+  
     const [toast, setToast] = useState(null);
 
-    function mostrarToast(dados){
-
-        setToast(dados);
-    
-    
-        setTimeout(()=>{
-    
-            setToast(null);
-    
-        },5000);
-    
-    }
-
-    function solicitarConsulta(dia, horario){
-
-        horario.solicitado = true;
-    
-    
-        const dados = {
-    
-            estudante: estudante.nome,
-    
-            dia: dia.dia,
-    
-            horario:
-    
-            `${horario.das} às ${horario.ate}`
-    
-        };
-    
-    
-        mostrarToast(dados);
-    
-    }
-    
-}
-
-import estudantes from "../data/Estudantes";
-import RatingStars from "../components/RatingStars";
-
-function PerfilEstudante() {
-
-  const { id } = useParams();
+    const [mostrarTodosFeedbacks, setMostrarTodosFeedbacks] = useState(false);
 
   const estudante = estudantes.find(
     (e) => e.id === Number(id)
   );
+
+  const [agenda, setAgenda] = useState(estudante.agenda);
+
+  useEffect(() => {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}, []);
 
   if (!estudante) {
 
@@ -63,7 +39,146 @@ function PerfilEstudante() {
 
   }
 
+  function mostrarToast(dados){
+
+    setToast(dados);
+
+    setTimeout(()=>{
+
+        setToast(null);
+
+    },5000);
+
+}
+
+
+function solicitarConsulta(dia, horario){
+
+    setAgenda(
+
+        agenda.map((d)=>({
+
+            ...d,
+
+            horarios:d.horarios.map((h)=>{
+
+                if(h === horario){
+
+                    return {
+
+                        ...h,
+
+                        solicitado:true
+
+                    };
+
+                }
+
+                return h;
+
+            })
+
+        }))
+
+    );
+
+    const dados = {
+
+        estudante: estudante.nome,
+
+        dia: dia.dia,
+
+        horario:`${horario.das} às ${horario.ate}`,
+
+        horarioRef: {
+            das: horario.das,
+            ate: horario.ate
+        }
+
+    };
+
+    mostrarToast(dados);
+
+}
+
   return (
+
+        <>
+        
+        {
+toast && (
+
+<div
+
+className="toast-solicitacao"
+
+onClick={() => {
+
+    if (!toast.cancelado) {
+
+        setSolicitacao(toast);
+
+        setToast(null);
+
+    }
+
+}}
+
+>
+
+
+<button
+
+className="fechar-toast"
+
+onClick={(e)=>{
+
+
+    e.stopPropagation();
+
+
+    setToast(null);
+
+
+}}
+
+>
+
+✖
+
+</button>
+
+
+
+<div className="toast-texto">
+
+
+{
+
+toast.cancelado
+
+?
+
+"❌ Solicitação cancelada"
+
+:
+
+"✅ Consulta solicitada"
+
+}
+
+
+</div>
+
+
+
+<div className="toast-barra"></div>
+
+
+</div>
+
+)
+}
 
     <div className="perfil-container">
     
@@ -161,7 +276,7 @@ function PerfilEstudante() {
 
 <div className="agenda-grid">
 
-    {estudante.agenda.map((dia, index) => (
+    {agenda.map((dia, index) => (
 
         <div
             key={index}
@@ -186,37 +301,48 @@ function PerfilEstudante() {
     <button
 
 className={
-horario.solicitado
-?
-"btn-solicitado"
-:
-"btn-agendar"
+    horario.solicitado
+    ?
+    "btn-solicitado"
+    :
+    "btn-agendar"
 }
 
 onClick={()=>{
 
-if(!horario.solicitado){
 
-solicitarConsulta(dia, horario);
+    if(!horario.solicitado){
 
-}
-
-}}
+        solicitarConsulta(dia, horario);
+    
+    }
+    else{
+    
+        setSolicitacao({
+    
+            estudante: estudante.nome,
+    
+            dia: dia.dia,
+    
+            horario:`${horario.das} às ${horario.ate}`,
+    
+            horarioRef: horario
+    
+        });
+    
+    }
+    
+    
+    }}
 
 >
 
 {
-
 horario.solicitado
-
 ?
-
 "Solicitado ✓"
-
 :
-
 "Agendar"
-
 }
 
 </button>
@@ -241,7 +367,12 @@ horario.solicitado
 
 {
 
-estudante.feedbacks.slice(0,3).map((feedback,index)=>(
+estudante.feedbacks
+.slice(
+    0,
+    mostrarTodosFeedbacks ? estudante.feedbacks.length : 3
+)
+.map((feedback,index)=>(
 
 <div 
     key={index}
@@ -273,7 +404,13 @@ estudante.feedbacks.slice(0,3).map((feedback,index)=>(
 
 </div>
 
-<button className="mostrar-feedbacks">
+<button
+
+className="mostrar-feedbacks"
+
+onClick={() => setMostrarTodosFeedbacks(true)}
+
+>
 
 Mostrar mais
 
@@ -284,10 +421,68 @@ Mostrar mais
         <div className="perfil-agendar">
     
         </div>
+
+        <SolicitacaoModal
+
+    aberto={solicitacao !== null}
+
+    fechar={()=>setSolicitacao(null)}
+
+    solicitacao={solicitacao}
+
+    cancelar={() => {
+
+        setAgenda(
     
-    </div>
+            agenda.map((d) => ({
     
-    );
+                ...d,
+    
+                horarios: d.horarios.map((h) => {
+    
+                    if (
+
+                        h.das === solicitacao.horarioRef.das &&
+                    
+                        h.ate === solicitacao.horarioRef.ate
+                    
+                    ) {
+    
+                        return {
+    
+                            ...h,
+    
+                            solicitado: false
+    
+                        };
+    
+                    }
+    
+                    return h;
+    
+                })
+    
+            }))
+    
+        );
+    
+        setSolicitacao(null);
+    
+        mostrarToast({
+    
+            cancelado: true
+    
+        });
+    
+    }}
+
+/>
+    
+        </div>
+
+</>
+
+);
 
 }
 

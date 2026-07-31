@@ -10,95 +10,117 @@
 
     .perfil-header{
 
+        width:100%;
+    
         display:flex;
-        
+    
+        flex-direction:column;
+    
         align-items:center;
-        
-        gap:35px;
-        
-        background:white;
-        
-        padding:30px;
-        
-        border-radius:25px;
-        
-        box-shadow:0 8px 20px rgba(0,0,0,.08);
-        
-        margin-bottom:30px;
-        
-        }
+    
+        justify-content:center;
+    
+        text-align:center;
+    
+        gap:20px;
+    
+    }
+    
+    
+    .perfil-foto{
+    
+        width:180px;
+    
+        height:180px;
+    
+        border-radius:50%;
+    
+        object-fit:cover;
+    
+        border:5px solid #2BB673;
+    
+    }
+    
+    
+    .perfil-info{
 
-        .perfil-foto{
+        display:flex;
+    
+        flex-direction:column;
+    
+        align-items:center;
+    
+        justify-content:center;
+    
+        gap:12px;
+    
+        text-align:center;
+    
+    }
+    
+    .perfil-info h1{
+    
+        margin:0;
+    
+        font-size:34px;
+    
+        font-weight:700;
+    
+        color:#184C7D;
+    
+    }
+    
+    
+    .perfil-info p{
+    
+        margin:0;
+    
+        font-size:18px;
+    
+        font-weight:500;
+    
+        color:#333;
+    
+    }
+    
+    
+    .perfil-avaliacao{
 
-            width:180px;
-            
-            height:180px;
-            
-            border-radius:50%;
-            
-            object-fit:cover;
-            
-            border:5px solid #2BB673;
-            
-            }
-
-            .perfil-info{
-
-                display:flex;
-                
-                flex-direction:column;
-                
-                gap:12px;
-                
-                }
-
-                .perfil-info h1{
-
-                    font-size:34px;
-                    
-                    color:#184C7D;
-                    
-                    }
-
-                    .perfil-info p{
-
-                        font-size:18px;
-                        
-                        color:#555;
-                        
-                        }
-
-                        .perfil-info h3{
-
-                            font-size:22px;
-                            
-                            color:#F5A623;
-                            
-                            }
-
-                            .perfil-avaliacao{
-
-                                display:flex;
-                                
-                                align-items:center;
-                                
-                                gap:12px;
-                                
-                                margin-top:10px;
-                                
-                                }
-
-                                .rating-stars{
-
-                                    display:flex;
-                                    
-                                    gap:4px;
-                                    
-                                    color:#F5A623;
-                                    
-                                    font-size:22px;
-                                    
-                                    }
+        display:flex;
+    
+        flex-direction:column;
+    
+        align-items:center;
+    
+        gap:8px;
+    
+        margin-top:10px;
+    
+    }
+    
+    
+    .perfil-avaliacao h3{
+    
+        margin:0;
+    
+        font-size:22px;
+    
+        color:#F5A623;
+    
+    }
+    
+    
+    .rating-stars{
+    
+        display:flex;
+    
+        gap:4px;
+    
+        color:#F5A623;
+    
+        font-size:22px;
+    
+    }
 
                                     .perfil-experiencia{
 
@@ -176,15 +198,13 @@
 
                                                             .agenda-grid{
 
-                                                                display:flex;
-                                                                
-                                                                flex-wrap:wrap;
-                                                                
+                                                                display:grid;
+                                                            
+                                                                grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+                                                            
                                                                 gap:20px;
-                                                                
-                                                                margin-top:20px;
-                                                                
-                                                                }
+                                                            
+                                                            }
 
                                                                 .agenda-card{
 
@@ -373,3 +393,199 @@
                                                                                                         
                                                                                                         }
 
+                                                                                                        .btn-solicitado{
+
+                                                                                                            background:#184C7D;
+                                                                                                        
+                                                                                                            color:white;
+                                                                                                        
+                                                                                                            border:none;
+                                                                                                        
+                                                                                                            padding:8px 18px;
+                                                                                                        
+                                                                                                            border-radius:10px;
+                                                                                                        
+                                                                                                            cursor:pointer;
+                                                                                                        
+                                                                                                            font-weight:bold;
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .perfil-container h2{
+
+                                                                                                            color:#184C7D;
+                                                                                                        
+                                                                                                            font-size:26px;
+                                                                                                        
+                                                                                                            font-weight:700;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .perfil-container{
+                                                                                                        
+                                                                                                            width:100%;
+                                                                                                        
+                                                                                                            max-width:1100px;
+                                                                                                        
+                                                                                                            margin:auto;
+                                                                                                        
+                                                                                                            padding:40px 25px;
+                                                                                                        
+                                                                                                            display:flex;
+                                                                                                        
+                                                                                                            flex-direction:column;
+                                                                                                        
+                                                                                                            gap:30px;
+                                                                                                        
+                                                                                                            text-align:left;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .perfil-container > section,
+                                                                                                        .perfil-container > div{
+                                                                                                        
+                                                                                                            width:100%;
+                                                                                                        
+                                                                                                            display:block;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .perfil-header{
+                                                                                                        
+                                                                                                            width:100%;
+                                                                                                        
+                                                                                                            display:flex;
+                                                                                                        
+                                                                                                            flex-direction:row;
+                                                                                                        
+                                                                                                            align-items:center;
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .toast-solicitacao{
+
+                                                                                                            position:fixed;
+                                                                                                        
+                                                                                                            top:20px;
+                                                                                                        
+                                                                                                            left:50%;
+                                                                                                        
+                                                                                                            transform:translateX(-50%);
+                                                                                                        
+                                                                                                            width:500px;
+    min-height:80px;
+                                                                                                        
+                                                                                                            background:white;
+                                                                                                        
+                                                                                                            border-radius:15px;
+                                                                                                        
+                                                                                                            box-shadow:0 8px 25px rgba(0,0,0,.2);
+                                                                                                        
+                                                                                                            padding:15px;
+                                                                                                        
+                                                                                                            cursor:pointer;
+                                                                                                        
+                                                                                                            z-index:99999;
+                                                                                                        
+                                                                                                            overflow:hidden;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .toast-texto{
+
+                                                                                                            display:flex;
+                                                                                                        
+                                                                                                            justify-content:center;
+                                                                                                        
+                                                                                                            align-items:center;
+                                                                                                        
+                                                                                                            text-align:center;
+                                                                                                        
+                                                                                                            min-height:40px;
+                                                                                                        
+                                                                                                            font-size:18px;
+                                                                                                        
+                                                                                                            font-weight:bold;
+                                                                                                        
+                                                                                                            color:#184C7D;
+                                                                                                        
+                                                                                                            padding:0 35px;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        .toast-barra{
+                                                                                                        
+                                                                                                            height:5px;
+                                                                                                        
+                                                                                                            background:#2BB673;
+                                                                                                        
+                                                                                                            margin-top:15px;
+                                                                                                        
+                                                                                                            animation:
+                                                                                                        
+                                                                                                            diminuirToast 5s linear forwards;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        
+                                                                                                        @keyframes diminuirToast{
+                                                                                                        
+                                                                                                            from{
+                                                                                                        
+                                                                                                                width:100%;
+                                                                                                        
+                                                                                                            }
+                                                                                                        
+                                                                                                        
+                                                                                                            to{
+                                                                                                        
+                                                                                                                width:0%;
+                                                                                                        
+                                                                                                            }
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .fechar-toast{
+
+                                                                                                            position:absolute;
+                                                                                                        
+                                                                                                            top:10px;
+                                                                                                        
+                                                                                                            left:10px;
+                                                                                                        
+                                                                                                            width:28px;
+                                                                                                        
+                                                                                                            height:28px;
+                                                                                                        
+                                                                                                            display:flex;
+                                                                                                        
+                                                                                                            align-items:center;
+                                                                                                        
+                                                                                                            justify-content:center;
+                                                                                                        
+                                                                                                            border:none;
+                                                                                                        
+                                                                                                            border-radius:50%;
+                                                                                                        
+                                                                                                            background:transparent;
+                                                                                                        
+                                                                                                            cursor:pointer;
+                                                                                                        
+                                                                                                            font-size:18px;
+                                                                                                        
+                                                                                                            color:#666;
+                                                                                                        
+                                                                                                            transition:.2s;
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .fechar-toast:hover{
+
+                                                                                                            background:#ececec;
+                                                                                                        
+                                                                                                        }

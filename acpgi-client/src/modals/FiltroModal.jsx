@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import "../styles/FiltroModal.css";
 
-function FiltroModal({ aberto, fechar }) {
+function FiltroModal({
+  aberto,
+  fechar,
+  filtros,
+  setFiltros
+}) {
 
   useEffect(() => {
 
@@ -16,6 +21,26 @@ function FiltroModal({ aberto, fechar }) {
   }, [aberto]);
 
   if (!aberto) return null;
+
+  function alterarDia(dia){
+
+    if(filtros.dias.includes(dia)){
+  
+      setFiltros({
+        ...filtros,
+        dias: filtros.dias.filter((d)=>d !== dia)
+      });
+  
+    }else{
+  
+      setFiltros({
+        ...filtros,
+        dias:[...filtros.dias,dia]
+      });
+  
+    }
+  
+  }
 
   return (
     <div
@@ -48,23 +73,46 @@ function FiltroModal({ aberto, fechar }) {
     <label>Faculdade</label>
 
     <input
-      type="text"
-      placeholder="Pesquisar faculdade"
-    />
+  type="text"
+  placeholder="Pesquisar faculdade"
+  value={filtros.faculdade}
+  onChange={(e)=>
+    setFiltros({
+      ...filtros,
+      faculdade:e.target.value
+    })
+  }
+/>
 
     <label>Avaliação mínima</label>
 
-    <select>
-      <option>⭐ 1+</option>
-      <option>⭐ 2+</option>
-      <option>⭐ 3+</option>
-      <option>⭐ 4+</option>
-      <option>⭐ 5</option>
+    <select
+  value={filtros.avaliacao}
+  onChange={(e)=>
+    setFiltros({
+      ...filtros,
+      avaliacao:Number(e.target.value)
+    })
+  }
+>
+<option value={1}>⭐ 1+</option>
+<option value={2}>⭐ 2+</option>
+<option value={3}>⭐ 3+</option>
+<option value={4}>⭐ 4+</option>
+<option value={5}>⭐ 5</option>
     </select>
 
     <label>Gênero</label>
 
-    <select>
+    <select
+  value={filtros.genero}
+  onChange={(e)=>
+    setFiltros({
+      ...filtros,
+      genero:e.target.value
+    })
+  }
+>
       <option>Todos</option>
       <option>Masculino</option>
       <option>Feminino</option>
@@ -74,18 +122,99 @@ function FiltroModal({ aberto, fechar }) {
     <label>Disponibilidade</label>
 
     <div className="dias-grid">
-      <label><input type="checkbox" /> Segunda</label>
-      <label><input type="checkbox" /> Terça</label>
-      <label><input type="checkbox" /> Quarta</label>
-      <label><input type="checkbox" /> Quinta</label>
-      <label><input type="checkbox" /> Sexta</label>
-      <label><input type="checkbox" /> Sábado</label>
-      <label><input type="checkbox" /> Domingo</label>
+    <label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Segunda-feira")}
+    onChange={()=>alterarDia("Segunda-feira")}
+  />
+  Segunda
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Terça-feira")}
+    onChange={()=>alterarDia("Terça-feira")}
+  />
+  Terça
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Quarta-feira")}
+    onChange={()=>alterarDia("Quarta-feira")}
+  />
+  Quarta
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Quinta-feira")}
+    onChange={()=>alterarDia("Quinta-feira")}
+  />
+  Quinta
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Sexta-feira")}
+    onChange={()=>alterarDia("Sexta-feira")}
+  />
+  Sexta
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Sábado")}
+    onChange={()=>alterarDia("Sábado")}
+  />
+  Sábado
+</label>
+
+<label>
+  <input
+    type="checkbox"
+    checked={filtros.dias.includes("Domingo")}
+    onChange={()=>alterarDia("Domingo")}
+  />
+  Domingo
+</label>
     </div>
 
-    <button className="aplicar-btn">
-      Aplicar Filtros
-    </button>
+    <button
+    className="aplicar-btn"
+    onClick={fechar}
+>
+    Aplicar Filtros
+</button>
+
+<button
+    className="limpar-btn"
+    onClick={() => {
+
+        setFiltros({
+
+            faculdade: "",
+
+            avaliacao: 1,
+
+            genero: "Todos",
+
+            dias: []
+
+        });
+
+    }}
+>
+
+    Limpar filtros
+
+</button>
 
   </div>
 

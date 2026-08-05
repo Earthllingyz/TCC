@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import estudantes from "../data/Estudantes";
 import RatingStars from "../components/RatingStars";
@@ -8,6 +8,8 @@ import SolicitacaoModal from "../modals/SolicitacaoModal";
 function PerfilEstudante() {
 
     const { id } = useParams();
+
+    const navigate = useNavigate();
   
     const [solicitacao, setSolicitacao] = useState(null);
   
@@ -67,9 +69,9 @@ function solicitarConsulta(dia, horario){
                     return {
 
                         ...h,
-
-                        solicitado:true
-
+                    
+                        status: "solicitado"
+                    
                     };
 
                 }
@@ -98,6 +100,48 @@ function solicitarConsulta(dia, horario){
     };
 
     mostrarToast(dados);
+
+    const notificacoes = [
+
+        {
+            id: Date.now(),
+    
+            titulo: "Consulta confirmada",
+    
+            mensagem: "Sua consulta foi confirmada pelo estudante.",
+    
+            tipo: "sucesso",
+    
+            estudante
+        },
+    
+        {
+            id: Date.now() + 1,
+    
+            titulo: "Solicitação negada",
+    
+            mensagem: "Uma solicitação de consulta foi recusada.",
+    
+            tipo: "erro",
+    
+            estudante,
+    
+            dia: dia.dia,
+    
+            horario: `${horario.das} às ${horario.ate}`,
+    
+            horarioRef: {
+                das: horario.das,
+                ate: horario.ate
+            }
+        }
+    
+    ];
+    
+    localStorage.setItem(
+        "notificacoes",
+        JSON.stringify(notificacoes)
+    );
 
 }
 
@@ -155,14 +199,14 @@ onClick={(e)=>{
 
 {
 
-toast.cancelado
-
+ttoast.negado
 ?
-
-"❌ Solicitação cancelada"
-
+"❌ Consulta negada"
 :
-
+toast.cancelado
+?
+"❌ Solicitação cancelada"
+:
 "✅ Consulta solicitada"
 
 }
@@ -183,6 +227,13 @@ toast.cancelado
     <div className="perfil-container">
     
         <div className="perfil-header">
+
+        <button
+    className="fechar-perfil"
+    onClick={() => navigate(-1)}
+>
+    ✕
+</button>
 
         <img
     src={estudante.foto}
@@ -301,21 +352,34 @@ toast.cancelado
     <button
 
 className={
-    horario.solicitado
-    ?
-    "btn-solicitado"
-    :
-    "btn-agendar"
+    horario.status === "livre"
+        ? "btn-agendar"
+        : horario.status === "solicitado"
+        ? "btn-solicitado"
+        : horario.status === "negado"
+        ? "btn-negado"
+        : "btn-confirmado"
 }
 
 onClick={()=>{
 
 
-    if(!horario.solicitado){
+    if(horario.status === "livre"){
 
         solicitarConsulta(dia, horario);
     
     }
+
+    else if(horario.status === "negado"){
+
+        mostrarToast({
+    
+            negado: true
+    
+        });
+    
+    }
+
     else{
     
         setSolicitacao({
@@ -338,11 +402,13 @@ onClick={()=>{
 >
 
 {
-horario.solicitado
-?
-"Solicitado ✓"
-:
-"Agendar"
+horario.status === "livre"
+    ? "Agendar"
+    : horario.status === "solicitado"
+    ? "Solicitado ✓"
+    : horario.status === "negado"
+    ? "Negado"
+    : "Confirmado ✓"
 }
 
 </button>

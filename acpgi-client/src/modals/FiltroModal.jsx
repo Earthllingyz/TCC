@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/FiltroModal.css";
 
 function FiltroModal({
@@ -7,6 +8,8 @@ function FiltroModal({
   filtros,
   setFiltros
 }) {
+
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -187,29 +190,68 @@ function FiltroModal({
     </div>
 
     <button
-    className="aplicar-btn"
-    onClick={fechar}
+  className="aplicar-btn"
+  onClick={() => {
+
+    const pesquisa =
+        new URLSearchParams(window.location.search).get("pesquisa") || "";
+
+    const params = new URLSearchParams();
+
+    if (pesquisa) {
+        params.set("pesquisa", pesquisa);
+    }
+
+    navigate(
+        `/resultados?${params.toString()}`,
+        {
+            state: {
+                filtros
+            }
+        }
+    );
+
+    fechar();
+
+}}
 >
-    Aplicar Filtros
+  Aplicar Filtros
 </button>
 
 <button
     className="limpar-btn"
     onClick={() => {
 
-        setFiltros({
-
-            faculdade: "",
-
-            avaliacao: 1,
-
-            genero: "Todos",
-
-            dias: []
-
-        });
-
-    }}
+      const filtrosLimpos = {
+  
+          faculdade: "",
+          avaliacao: 1,
+          genero: "Todos",
+          dias: []
+  
+      };
+  
+      setFiltros(filtrosLimpos);
+  
+      navigate(
+  
+          `/resultados?pesquisa=${new URLSearchParams(window.location.search).get("pesquisa") || ""}`,
+  
+          {
+  
+              state: {
+  
+                  filtros: filtrosLimpos
+  
+              }
+  
+          }
+  
+      );
+  
+      fechar();
+  
+  }}
 >
 
     Limpar filtros

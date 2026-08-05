@@ -97,8 +97,13 @@ const estudantesRecomendados = estudantes.filter((estudante) => {
   onPesquisar={(texto) => {
 
     navigate(
-      `/resultados?pesquisa=${encodeURIComponent(texto)}`
-    );
+      `/resultados?pesquisa=${encodeURIComponent(texto)}`,
+      {
+          state:{
+              filtros
+          }
+      }
+  );
 
   }}
   onFiltroClick={() => setAbrirFiltro(true)}

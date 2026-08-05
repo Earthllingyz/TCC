@@ -29,8 +29,20 @@ function TopBar({
   
   }, [valorPesquisa]);
 
+  useEffect(() => {
+
+    const lista = JSON.parse(
+        localStorage.getItem("notificacoes") || "[]"
+    );
+
+    setNotificacoes(lista);
+
+}, []);
+
   const [menuPerfil, setMenuPerfil] = useState(false);
 const [menuNotificacoes, setMenuNotificacoes] = useState(false);
+const [notificacoes, setNotificacoes] = useState([]);
+const [temNotificacaoNova, setTemNotificacaoNova] = useState(false);
 
 const abrirPerfil = () => {
   setMenuNotificacoes(false);
@@ -81,6 +93,23 @@ useEffect(() => {
 
 }, []);
 
+useEffect(() => {
+
+  const carregarNotificacoes = () => {
+
+      const lista = JSON.parse(
+          localStorage.getItem("notificacoes") || "[]"
+      );
+
+      setNotificacoes(lista);
+      setTemNotificacaoNova(lista.length > 0);
+
+  };
+
+  carregarNotificacoes();
+
+}, []);
+
   return (
     <div className="topbar">
       <div className="search-box">
@@ -123,12 +152,26 @@ useEffect(() => {
   ref={notificacaoRef}
 >
 
-  <button
-    className="icon-btn"
-    onClick={abrirNotificacoes}
-  >
-    <FaBell size={20} />
-  </button>
+<button
+    className="icon-btn notificacao-btn"
+    onClick={() => {
+
+        abrirNotificacoes();
+
+        setTemNotificacaoNova(false);
+
+    }}
+>
+
+    <FaBell size={20}/>
+
+    {temNotificacaoNova && (
+
+        <span className="notificacao-badge"></span>
+
+    )}
+
+</button>
 
   {menuNotificacoes && (
     <div className="dropdown-menu">
@@ -146,7 +189,32 @@ useEffect(() => {
       </button>
     </div>
   
-    <p>Nenhuma notificação.</p>
+    {notificacoes.length === 0 ? (
+
+<p>Nenhuma notificação.</p>
+
+) : (
+
+notificacoes.map((notificacao) => (
+
+    <div
+        key={notificacao.id}
+        className={`notificacao ${notificacao.tipo}`}
+    >
+
+        <strong>
+            {notificacao.titulo}
+        </strong>
+
+        <p>
+            {notificacao.mensagem}
+        </p>
+
+    </div>
+
+))
+
+)}
   
   </div>
   )}

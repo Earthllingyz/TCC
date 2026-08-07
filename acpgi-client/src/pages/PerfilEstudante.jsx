@@ -1,29 +1,57 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import {
+    useParams,
+    useNavigate,
+    useLocation
+} from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import estudantes from "../data/Estudantes";
 import RatingStars from "../components/RatingStars";
 import "../styles/PerfilEstudante.css";
 import SolicitacaoModal from "../modals/SolicitacaoModal";
+import ConsultaConfirmadaModal from "../modals/ConsultaConfirmadaModal";
 
 function PerfilEstudante() {
 
     const { id } = useParams();
 
+    const query = new URLSearchParams(window.location.search);
+
+const diaNegado = query.get("negado");
+
+const horarioNegado = query.get("horario");
+
+const diaConfirmado = query.get("confirmado");
+
     const navigate = useNavigate();
+
+    const location = useLocation();
   
     const [solicitacao, setSolicitacao] = useState(null);
+
+    const [consultaConfirmada, setConsultaConfirmada] = useState(null);
+
+const [aberturasConsulta, setAberturasConsulta] = useState(0);
   
     const [toast, setToast] = useState(null);
 
+    const [agendaVazia, setAgendaVazia] = useState(false);
+
     const [mostrarTodosFeedbacks, setMostrarTodosFeedbacks] = useState(false);
+
+    const toastTimeout = useRef(null);
 
   const estudante = estudantes.find(
     (e) => e.id === Number(id)
   );
 
-  const [agenda, setAgenda] = useState(estudante.agenda);
+  const [agenda, setAgenda] = useState(() =>
+    estudante.agenda.map(dia => ({
+        ...dia,
+        horarios: dia.horarios.map(h => ({ ...h }))
+    }))
+);
 
-  useEffect(() => {
+useEffect(() => {
 
     window.scrollTo({
 
@@ -33,8 +61,70 @@ function PerfilEstudante() {
 
     });
 
+
+    limparAgendaConsultaEncerrada();
+
+
 }, []);
 
+useEffect(() => {
+
+    limparAgendaConsultaEncerrada();
+
+}, [location]);
+
+useEffect(() => {
+
+    const chat = JSON.parse(
+        localStorage.getItem("consultaEmChat")
+    );
+
+    if (
+        chat &&
+        chat.estudanteId === estudante.id
+    ) {
+
+        setAgenda(prev =>
+
+            prev.map(dia => ({
+
+                ...dia,
+
+                horarios: dia.horarios.map(horario => {
+
+                    if (
+
+                        dia.dia === chat.dia &&
+
+                        horario.das === chat.das &&
+
+                        horario.ate === chat.ate
+
+                    ) {
+
+                        return {
+
+                            ...horario,
+
+                            status: "emChat"
+
+                        };
+
+                    }
+
+                    return horario;
+
+                })
+
+            }))
+
+        );
+
+        localStorage.removeItem("consultaEmChat");
+
+    }
+
+}, []);
   if (!estudante) {
 
     return <h2>Estudante não encontrado.</h2>;
@@ -43,22 +133,142 @@ function PerfilEstudante() {
 
   function mostrarToast(dados){
 
+    if (toastTimeout.current) {
+
+        clearTimeout(toastTimeout.current);
+
+    }
+
     setToast(dados);
 
-    setTimeout(()=>{
+    toastTimeout.current = setTimeout(() => {
 
         setToast(null);
 
-    },5000);
+    }, 5000);
 
+}
+
+function negarConsulta(dia, horario){
+
+    setAgenda(prev =>
+
+        prev.map((d)=>({
+
+            ...d,
+
+            horarios:d.horarios.map((h)=>{
+
+                if(
+                    h.das === horario.das &&
+                    h.ate === horario.ate
+                ){
+
+                    return {
+
+                        ...h,
+
+                        status:"negado"
+
+                    };
+
+                }
+
+
+                return h;
+
+            })
+
+        }))
+
+    );
+
+}
+
+const ordemDias = [
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+    "Domingo"
+];
+
+function limparAgendaConsultaEncerrada() {
+
+    const encerrada = JSON.parse(
+        localStorage.getItem("consultaEncerrada")
+    );
+
+    if (
+        !encerrada ||
+        encerrada.estudanteId !== estudante.id
+    ) {
+        return;
+    }
+
+    const indiceDiaConsulta = ordemDias.indexOf(encerrada.dia);
+
+    setAgenda((agendaAtual) => {
+
+        const novaAgenda = agendaAtual
+            .map((dia) => {
+
+                const indiceDia = ordemDias.indexOf(dia.dia);
+
+                // Dias anteriores desaparecem
+                if (indiceDia < indiceDiaConsulta) {
+                    return null;
+                }
+
+                // Dia da consulta
+                if (indiceDia === indiceDiaConsulta) {
+
+                    const horariosRestantes = dia.horarios.filter((horario) => {
+
+                        const texto = `${horario.das} às ${horario.ate}`;
+
+                        // remove o horário encerrado
+                        if (texto === encerrada.horario) {
+                            return false;
+                        }
+
+                        const horaConsulta = encerrada.horario.split(" às ")[0];
+
+return horario.das > horaConsulta;
+                    });
+
+                    if (horariosRestantes.length === 0) {
+                        return null;
+                    }
+
+                    return {
+                        ...dia,
+                        horarios: horariosRestantes
+                    };
+                }
+
+                // Dias posteriores permanecem
+                return dia;
+            })
+            .filter(Boolean);
+
+        setAgendaVazia(novaAgenda.length === 0);
+
+        return novaAgenda;
+
+    });
+
+    localStorage.removeItem("consultaEncerrada");
 }
 
 
 function solicitarConsulta(dia, horario){
 
-    setAgenda(
+    setAgenda(prev =>
 
-        agenda.map((d)=>({
+        prev.map((d)=>({
 
             ...d,
 
@@ -105,35 +315,40 @@ function solicitarConsulta(dia, horario){
 
         {
             id: Date.now(),
-    
             titulo: "Consulta confirmada",
-    
             mensagem: "Sua consulta foi confirmada pelo estudante.",
-    
             tipo: "sucesso",
     
-            estudante
+            estudanteId: estudante.id,
+            estudante: estudante.nome,
+            foto: estudante.foto,
+            faculdade: estudante.faculdade,
+            semestre: estudante.semestre,
+            avaliacao: estudante.avaliacao.media,
+            totalAvaliacoes: estudante.avaliacao.total,
+            genero: estudante.genero,
+    
+            dia: dia.dia,
+            horario: `${horario.das} às ${horario.ate}`
         },
     
         {
-            id: Date.now() + 1,
-    
+            id: Date.now()+1,
             titulo: "Solicitação negada",
-    
             mensagem: "Uma solicitação de consulta foi recusada.",
-    
             tipo: "erro",
     
-            estudante,
+            estudanteId: estudante.id,
+            estudante: estudante.nome,
+            foto: estudante.foto,
+            faculdade: estudante.faculdade,
+            semestre: estudante.semestre,
+            avaliacao: estudante.avaliacao.media,
+            totalAvaliacoes: estudante.avaliacao.total,
+            genero: estudante.genero,
     
             dia: dia.dia,
-    
-            horario: `${horario.das} às ${horario.ate}`,
-    
-            horarioRef: {
-                das: horario.das,
-                ate: horario.ate
-            }
+            horario: `${horario.das} às ${horario.ate}`
         }
     
     ];
@@ -144,6 +359,8 @@ function solicitarConsulta(dia, horario){
     );
 
 }
+
+console.log("Agenda renderizada:", agenda);
 
   return (
 
@@ -157,6 +374,13 @@ toast && (
 className="toast-solicitacao"
 
 onClick={() => {
+
+    if (toast.negado) {
+
+        return;
+
+    }
+
 
     if (!toast.cancelado) {
 
@@ -177,12 +401,15 @@ className="fechar-toast"
 
 onClick={(e)=>{
 
-
     e.stopPropagation();
 
+    if (toastTimeout.current) {
+
+        clearTimeout(toastTimeout.current);
+
+    }
 
     setToast(null);
-
 
 }}
 
@@ -198,17 +425,11 @@ onClick={(e)=>{
 
 
 {
-
-ttoast.negado
-?
-"❌ Consulta negada"
-:
-toast.cancelado
-?
-"❌ Solicitação cancelada"
-:
-"✅ Consulta solicitada"
-
+toast.negado
+  ? "❌ Solicitação negada"
+  : toast.cancelado
+  ? "❌ Solicitação cancelada"
+  : "✅ Consulta solicitada"
 }
 
 
@@ -327,7 +548,20 @@ toast.cancelado
 
 <div className="agenda-grid">
 
-    {agenda.map((dia, index) => (
+{
+agendaVazia ? (
+
+    <div className="sem-horarios">
+
+        Sem horários disponíveis essa semana,
+        espere até semana que vem.
+
+    </div>
+
+) : (
+
+agenda.map((dia,index)=>(
+
 
         <div
             key={index}
@@ -358,7 +592,9 @@ className={
         ? "btn-solicitado"
         : horario.status === "negado"
         ? "btn-negado"
-        : "btn-confirmado"
+        : horario.status === "confirmado"
+        ? "btn-confirmado"
+        : "btn-chat"
 }
 
 onClick={()=>{
@@ -380,8 +616,8 @@ onClick={()=>{
     
     }
 
-    else{
-    
+    else if(horario.status === "solicitado"){
+
         setSolicitacao({
     
             estudante: estudante.nome,
@@ -396,6 +632,34 @@ onClick={()=>{
     
     }
     
+    else if(horario.status === "confirmado"){
+
+        setAberturasConsulta(prev => prev + 1);
+    
+        setConsultaConfirmada({
+
+            estudanteId: estudante.id,
+        
+            estudante: estudante.nome,
+        
+            dia: dia.dia,
+        
+            horario: `${horario.das} às ${horario.ate}`,
+        
+            horarioRef: horario
+        
+        });
+    
+    }
+
+    else if(horario.status==="emChat"){
+
+        navigate(
+            `/chat/${estudante.id}?dia=${dia.dia}&horario=${horario.das} às ${horario.ate}`
+        );
+    
+    }
+    
     
     }}
 
@@ -403,12 +667,16 @@ onClick={()=>{
 
 {
 horario.status === "livre"
-    ? "Agendar"
-    : horario.status === "solicitado"
-    ? "Solicitado ✓"
-    : horario.status === "negado"
-    ? "Negado"
-    : "Confirmado ✓"
+? "Agendar"
+: horario.status === "solicitado"
+? "Solicitado ✓"
+: horario.status === "negado"
+? "Negado"
+: horario.status === "confirmado"
+? "Agendado"
+: horario.status === "emChat"
+? "💬 Chat"
+: "Agendar"
 }
 
 </button>
@@ -419,7 +687,10 @@ horario.status === "livre"
 
         </div>
 
-    ))}
+    ))
+
+)
+}
 
 </div>
     
@@ -498,9 +769,9 @@ Mostrar mais
 
     cancelar={() => {
 
-        setAgenda(
-    
-            agenda.map((d) => ({
+        setAgenda(prev =>
+
+            prev.map((d) => ({
     
                 ...d,
     
@@ -515,11 +786,11 @@ Mostrar mais
                     ) {
     
                         return {
-    
+
                             ...h,
-    
-                            solicitado: false
-    
+                        
+                            status: "livre"
+                        
                         };
     
                     }
@@ -543,7 +814,58 @@ Mostrar mais
     }}
 
 />
-    
+
+<ConsultaConfirmadaModal
+
+    aberto={consultaConfirmada !== null}
+
+    fechar={() => setConsultaConfirmada(null)}
+
+    consulta={consultaConfirmada}
+
+    aberturas={aberturasConsulta}
+
+    cancelar={() => {
+
+        setAgenda(prev =>
+
+            prev.map((d) => ({
+
+                ...d,
+
+                horarios: d.horarios.map((h) => {
+
+                    if (
+
+                        h.das === consultaConfirmada.horarioRef.das &&
+
+                        h.ate === consultaConfirmada.horarioRef.ate
+
+                    ) {
+
+                        return {
+
+                            ...h,
+
+                            status: "livre"
+
+                        };
+
+                    }
+
+                    return h;
+
+                })
+
+            }))
+
+        );
+
+        setConsultaConfirmada(null);
+
+    }}
+
+/>
         </div>
 
 </>

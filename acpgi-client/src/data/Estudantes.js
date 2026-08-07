@@ -41,13 +41,13 @@ const estudantes = [
                     {
                         das: "08:00",
                         ate: "09:30",
-                        solicitado: false
+                        status:"livre"
                     },
     
                     {
                         das: "15:00",
                         ate: "17:00",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -65,7 +65,7 @@ const estudantes = [
                     {
                         das: "14:00",
                         ate: "16:00",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -83,7 +83,7 @@ const estudantes = [
                     {
                         das: "09:00",
                         ate: "10:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -195,13 +195,13 @@ const estudantes = [
                     {
                         das: "09:00",
                         ate: "10:30",
-                        solicitado: false
+                        status:"livre"
                     },
     
                     {
                         das: "15:00",
                         ate: "16:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -219,7 +219,7 @@ const estudantes = [
                     {
                         das: "13:30",
                         ate: "15:00",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -237,7 +237,7 @@ const estudantes = [
                     {
                         das: "10:00",
                         ate: "11:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -373,13 +373,13 @@ const estudantes = [
                     {
                         das: "10:00",
                         ate: "11:30",
-                        solicitado: false
+                        status:"livre"
                     },
     
                     {
                         das: "18:00",
                         ate: "19:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -397,7 +397,7 @@ const estudantes = [
                     {
                         das: "14:30",
                         ate: "16:00",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -415,7 +415,7 @@ const estudantes = [
                     {
                         das: "09:00",
                         ate: "10:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -551,13 +551,13 @@ const estudantes = [
                     {
                         das: "08:30",
                         ate: "10:00",
-                        solicitado: false
+                        status:"livre"
                     },
     
                     {
                         das: "16:00",
                         ate: "17:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -575,7 +575,7 @@ const estudantes = [
                     {
                         das: "14:00",
                         ate: "15:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -593,7 +593,7 @@ const estudantes = [
                     {
                         das: "18:00",
                         ate: "19:30",
-                        solicitado: false
+                        status:"livre"
                     }
     
                 ]
@@ -718,15 +718,15 @@ const estudantes = [
                 dia:"Segunda-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"08:30", ate:"10:00", solicitado:false },
-                    { das:"14:30", ate:"16:00", solicitado:false }
+                    { das:"08:30", ate:"10:00", status:"livre" },
+                    { das:"14:30", ate:"16:00", status:"livre" }
                 ]
             },
             {
                 dia:"Quinta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"18:00", ate:"19:30", solicitado:false }
+                    { das:"18:00", ate:"19:30", status:"livre" }
                 ]
             }
         ],
@@ -783,15 +783,15 @@ const estudantes = [
                 dia:"Terça-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"09:00", ate:"10:30", solicitado:false },
-                    { das:"16:00", ate:"17:30", solicitado:false }
+                    { das:"09:00", ate:"10:30", status:"livre" },
+                    { das:"16:00", ate:"17:30", status:"livre" }
                 ]
             },
             {
                 dia:"Sexta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"13:00", ate:"14:30", solicitado:false }
+                    { das:"13:00", ate:"14:30", status:"livre" }
                 ]
             }
         ],
@@ -848,15 +848,15 @@ const estudantes = [
                 dia:"Quarta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"08:00", ate:"09:30", solicitado:false },
-                    { das:"18:00", ate:"19:30", solicitado:false }
+                    { das:"08:00", ate:"09:30", status:"livre" },
+                    { das:"18:00", ate:"19:30", status:"livre" }
                 ]
             },
             {
                 dia:"Sábado",
                 disponivel:true,
                 horarios:[
-                    { das:"10:00", ate:"11:30", solicitado:false }
+                    { das:"10:00", ate:"11:30", status:"livre" }
                 ]
             }
         ],
@@ -913,15 +913,15 @@ const estudantes = [
                 dia:"Segunda-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"13:00", ate:"14:30", solicitado:false },
-                    { das:"17:00", ate:"18:30", solicitado:false }
+                    { das:"13:00", ate:"14:30", status:"livre" },
+                    { das:"17:00", ate:"18:30", status:"livre" }
                 ]
             },
             {
                 dia:"Quinta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"09:00", ate:"10:30", solicitado:false }
+                    { das:"09:00", ate:"10:30", status:"livre" }
                 ]
             }
         ],
@@ -978,15 +978,15 @@ const estudantes = [
                 dia:"Segunda-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"09:00", ate:"10:30", solicitado:false },
-                    { das:"15:00", ate:"16:30", solicitado:false }
+                    { das:"09:00", ate:"10:30", status:"livre" },
+                    { das:"15:00", ate:"16:30", status:"livre" }
                 ]
             },
             {
                 dia:"Quinta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"18:00", ate:"19:30", solicitado:false }
+                    { das:"18:00", ate:"19:30", status:"livre" }
                 ]
             }
         ],
@@ -1043,15 +1043,15 @@ const estudantes = [
                 dia:"Terça-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"08:30", ate:"10:00", solicitado:false },
-                    { das:"14:30", ate:"16:00", solicitado:false }
+                    { das:"08:30", ate:"10:00", status:"livre" },
+                    { das:"14:30", ate:"16:00", status:"livre" }
                 ]
             },
             {
                 dia:"Sexta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"19:00", ate:"20:30", solicitado:false }
+                    { das:"19:00", ate:"20:30", status:"livre" }
                 ]
             }
         ],
@@ -1108,15 +1108,15 @@ const estudantes = [
                 dia:"Quarta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"09:30", ate:"11:00", solicitado:false },
-                    { das:"17:00", ate:"18:30", solicitado:false }
+                    { das:"09:30", ate:"11:00", status:"livre" },
+                    { das:"17:00", ate:"18:30", status:"livre" }
                 ]
             },
             {
                 dia:"Sábado",
                 disponivel:true,
                 horarios:[
-                    { das:"10:00", ate:"11:30", solicitado:false }
+                    { das:"10:00", ate:"11:30", status:"livre" }
                 ]
             }
         ],
@@ -1173,15 +1173,15 @@ const estudantes = [
                 dia:"Segunda-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"13:30", ate:"15:00", solicitado:false },
-                    { das:"18:00", ate:"19:30", solicitado:false }
+                    { das:"13:30", ate:"15:00", status:"livre" },
+                    { das:"18:00", ate:"19:30", status:"livre" }
                 ]
             },
             {
                 dia:"Quinta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"09:00", ate:"10:30", solicitado:false }
+                    { das:"09:00", ate:"10:30", status:"livre" }
                 ]
             }
         ],
@@ -1238,15 +1238,15 @@ const estudantes = [
                 dia:"Terça-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"10:00", ate:"11:30", solicitado:false },
-                    { das:"15:30", ate:"17:00", solicitado:false }
+                    { das:"10:00", ate:"11:30", status:"livre" },
+                    { das:"15:30", ate:"17:00", status:"livre" }
                 ]
             },
             {
                 dia:"Sexta-feira",
                 disponivel:true,
                 horarios:[
-                    { das:"18:30", ate:"20:00", solicitado:false }
+                    { das:"18:30", ate:"20:00", status:"livre" }
                 ]
             }
         ],

@@ -13,6 +13,7 @@ import DashboardEstudante from "./pages/DashboardEstudante";
 import MeuPerfil from "./pages/MeuPerfil";
 import Resultados from "./pages/Resultados";
 import PerfilEstudante from "./pages/PerfilEstudante";
+import ChatConsulta from "./pages/ChatConsulta";
 
 function App() {
   return (
@@ -62,6 +63,11 @@ function App() {
 <Route
     path="/perfil-estudante/:id"
     element={<PerfilEstudante />}
+/>
+
+<Route
+    path="/chat/:id"
+    element={<ChatConsulta />}
 />
 
       </Routes>

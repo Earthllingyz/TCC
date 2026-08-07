@@ -11,14 +11,14 @@ function StudentCard({
   semestre,
   avaliacao,
   totalAvaliacoes,
-  disponivel
+  disponivel,
+  onPerfil
 }) {
   const navigate = useNavigate();
 
   return (
     <div
-  className="student-card"
-  onClick={() => navigate(`/perfil-estudante/${id}`)}
+    className="student-card"
 >
 
       <img
@@ -71,7 +71,15 @@ function StudentCard({
 
     e.stopPropagation();
 
-    navigate(`/perfil-estudante/${id}`);
+    if (onPerfil) {
+
+      onPerfil();
+
+    } else {
+
+      navigate(`/perfil-estudante/${id}`);
+
+    }
 
   }}
 >

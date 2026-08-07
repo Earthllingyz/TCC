@@ -1,0 +1,78 @@
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+}
+
+.modal-content{
+    width:650px;
+    max-width:95vw;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:25px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.modal-header h2{
+    color:#184C7D;
+    margin:0;
+}
+
+.close-btn{
+    border:none;
+    background:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:30px;
+    text-align:center;
+}
+
+.modal-body p{
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+.chat-bloqueado-btn,
+.chat-btn,
+.cancelar-consulta-btn{
+
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    margin-top:15px;
+}
+
+.chat-bloqueado-btn{
+    background:#d1d5db;
+    color:#6b7280;
+    cursor:not-allowed;
+}
+
+.chat-btn{
+    background:#22c55e;
+    color:white;
+    cursor:pointer;
+}
+
+.cancelar-consulta-btn{
+    background:#ef4444;
+    color:white;
+    cursor:pointer;
+}

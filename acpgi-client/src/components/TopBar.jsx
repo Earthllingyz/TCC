@@ -13,6 +13,9 @@ import {
   FaUserCircle
 } from "react-icons/fa";
 
+import NotificacaoNegadaModal from "../modals/NotificacaoNegadaModal";
+import NotificacaoConfirmadaModal from "../modals/NotificacaoConfirmadaModal";
+
 function TopBar({
   placeholder = "Pesquisar...",
   valorPesquisa = "",
@@ -28,16 +31,6 @@ function TopBar({
     setTextoPesquisa(valorPesquisa);
   
   }, [valorPesquisa]);
-
-  useEffect(() => {
-
-    const lista = JSON.parse(
-        localStorage.getItem("notificacoes") || "[]"
-    );
-
-    setNotificacoes(lista);
-
-}, []);
 
   const [menuPerfil, setMenuPerfil] = useState(false);
 const [menuNotificacoes, setMenuNotificacoes] = useState(false);
@@ -109,6 +102,9 @@ useEffect(() => {
   carregarNotificacoes();
 
 }, []);
+
+const [notificacaoSelecionada, setNotificacaoSelecionada] = useState(null);
+const [notificacaoConfirmadaSelecionada, setNotificacaoConfirmadaSelecionada] = useState(null);
 
   return (
     <div className="topbar">
@@ -195,7 +191,7 @@ useEffect(() => {
 
 ) : (
 
-notificacoes.map((notificacao) => (
+  notificacoes.map((notificacao) => (
 
     <div
         key={notificacao.id}
@@ -209,6 +205,31 @@ notificacoes.map((notificacao) => (
         <p>
             {notificacao.mensagem}
         </p>
+
+        <button
+    className="ver-mais-btn"
+    onClick={() => {
+
+        setMenuNotificacoes(false);
+
+
+        if(notificacao.tipo === "erro"){
+
+            setNotificacaoSelecionada(notificacao);
+
+        }
+
+
+        if(notificacao.tipo === "sucesso"){
+
+            setNotificacaoConfirmadaSelecionada(notificacao);
+
+        }
+
+    }}
+>
+    Ver mais
+</button>
 
     </div>
 
@@ -279,8 +300,25 @@ notificacoes.map((notificacao) => (
 )}
 
 </div>
-      </div>
-    </div>
+</div>
+
+<NotificacaoNegadaModal
+    aberto={notificacaoSelecionada !== null}
+    fechar={() => setNotificacaoSelecionada(null)}
+    notificacao={notificacaoSelecionada}
+/>
+
+<NotificacaoConfirmadaModal
+
+    aberto={notificacaoConfirmadaSelecionada !== null}
+
+    fechar={() => setNotificacaoConfirmadaSelecionada(null)}
+
+    notificacao={notificacaoConfirmadaSelecionada}
+
+/>
+
+</div>
   );
 }
 

@@ -651,3 +651,77 @@
                                                                                                             background:#b91c1c;
                                                                                                         
                                                                                                         }
+
+                                                                                                        .btn-confirmado{
+
+                                                                                                            background: #fbbf24;
+
+    color: #78350f;
+                                                                                                        
+                                                                                                            border: none;
+                                                                                                        
+                                                                                                            border-radius: 10px;
+                                                                                                        
+                                                                                                            padding: 10px 16px;
+                                                                                                        
+                                                                                                            font-weight: 700;
+                                                                                                        
+                                                                                                            cursor: pointer;
+                                                                                                        
+                                                                                                            transition: .2s;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        .btn-confirmado:hover{
+                                                                                                        
+                                                                                                            background: #eab308;
+                                                                                                        
+                                                                                                            transform: scale(1.03);
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .btn-chat{
+
+                                                                                                            background:#60a5fa;
+                                                                                                        
+                                                                                                            color:white;
+                                                                                                        
+                                                                                                            border:none;
+                                                                                                        
+                                                                                                            border-radius:10px;
+                                                                                                        
+                                                                                                            padding:10px 16px;
+                                                                                                        
+                                                                                                            font-weight:bold;
+                                                                                                        
+                                                                                                            cursor:pointer;
+                                                                                                        
+                                                                                                            transition:.2s;
+                                                                                                        
+                                                                                                        }
+                                                                                                        
+                                                                                                        .btn-chat:hover{
+                                                                                                        
+                                                                                                            background:#3b82f6;
+                                                                                                        
+                                                                                                        }
+
+                                                                                                        .sem-horarios{
+
+                                                                                                            width:100%;
+                                                                                                        
+                                                                                                            padding:35px;
+                                                                                                        
+                                                                                                            text-align:center;
+                                                                                                        
+                                                                                                            background:white;
+                                                                                                        
+                                                                                                            border-radius:20px;
+                                                                                                        
+                                                                                                            color:#184C7D;
+                                                                                                        
+                                                                                                            font-size:18px;
+                                                                                                        
+                                                                                                            font-weight:bold;
+                                                                                                        
+                                                                                                        }

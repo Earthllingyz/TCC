@@ -19,6 +19,10 @@ const [erroFormulario,
   setErroFormulario] =
   useState("");
 
+  localStorage.removeItem("notificacoes");
+
+  localStorage.removeItem("statusHorarios");
+
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -37,6 +41,7 @@ const [erroFormulario,
     }
   
     if (tipoUsuario === "cliente") {
+      localStorage.clear();
       localStorage.setItem("logado", "true");
       navigate("/dashboard-cliente");
     } else {

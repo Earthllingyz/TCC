@@ -5,6 +5,8 @@ import {
 import estudantes from "../data/Estudantes";
 import { useState, useEffect, useRef } from "react";
 import "../styles/ChatConsulta.css";
+import ModalAnimado from "../modals/ModalAnimado";
+import "../styles/ModalAnimado.css";
 import { FaFlag } from "react-icons/fa";
 
 function ChatConsulta(){
@@ -497,6 +499,8 @@ toast.tipo==="negado"
 
 abrirDenuncia && (
 
+    <ModalAnimado aberto={aberto}>
+
 <div
     className="modal-overlay"
     onClick={() => setAbrirDenuncia(false)}
@@ -557,6 +561,8 @@ abrirDenuncia && (
     </div>
 
 </div>
+
+</ModalAnimado>
 
 )}
 

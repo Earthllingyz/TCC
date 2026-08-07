@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function ModalSolicitacaoConta({
   aberto,
@@ -7,17 +9,18 @@ function ModalSolicitacaoConta({
 
   const navigate = useNavigate();
 
-  if (!aberto) return null;
-
   const finalizar = () => {
-
     fechar();
-
-    navigate("/");
-
+  
+    setTimeout(() => {
+      navigate("/");
+    }, 300);
   };
+  
 
   return (
+
+    <ModalAnimado aberto={aberto}>
 
     <div
       className="modal-overlay"
@@ -66,6 +69,8 @@ function ModalSolicitacaoConta({
       </div>
 
     </div>
+
+    </ModalAnimado>
 
   );
 

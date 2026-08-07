@@ -31,7 +31,11 @@ const horarioConfirmado = query.get("horario");
   
     const [solicitacao, setSolicitacao] = useState(null);
 
+    const [solicitacaoAberta, setSolicitacaoAberta] = useState(false);
+
     const [consultaConfirmada, setConsultaConfirmada] = useState(null);
+const [consultaConfirmadaAberta, setConsultaConfirmadaAberta] = useState(false);
+
 
 const [aberturasConsulta, setAberturasConsulta] = useState(0);
   
@@ -55,6 +59,15 @@ const [aberturasConsulta, setAberturasConsulta] = useState(0);
         horarios: dia.horarios.map(h => ({ ...h }))
     }))
 );
+
+const fecharConsultaConfirmada = () => {
+    setConsultaConfirmadaAberta(false);
+
+    setTimeout(() => {
+        setConsultaConfirmada(null);
+    }, 300);
+};
+
 
 useEffect(() => {
 
@@ -434,6 +447,15 @@ function solicitarConsulta(dia, horario){
 
 console.log("Agenda renderizada:", agenda);
 
+const fecharSolicitacao = () => {
+    setSolicitacaoAberta(false);
+
+    setTimeout(() => {
+        setSolicitacao(null);
+    }, 300);
+};
+
+
   return (
 
         <>
@@ -459,8 +481,9 @@ onClick={() => {
     if (!toast.cancelado) {
 
         setSolicitacao(toast);
+setSolicitacaoAberta(true);
+setToast(null);
 
-        setToast(null);
 
     }
 
@@ -705,28 +728,25 @@ onClick={()=>{
             horarioRef: horario
     
         });
+
+        setSolicitacaoAberta(true);
     
     }
     
-    else if(horario.status === "confirmado"){
+    else if (horario.status === "confirmado") {
 
-        setAberturasConsulta(prev => prev + 1);
+        setAberturasConsulta((prev) => prev + 1);
     
         setConsultaConfirmada({
-
             estudanteId: estudante.id,
-        
             estudante: estudante.nome,
-        
             dia: dia.dia,
-        
             horario: `${horario.das} às ${horario.ate}`,
-        
             horarioRef: horario
-        
         });
     
-    }
+        setConsultaConfirmadaAberta(true);
+    }    
 
     else if(horario.status==="emChat"){
 
@@ -836,12 +856,10 @@ Mostrar mais
         </div>
 
         <SolicitacaoModal
-
-    aberto={solicitacao !== null}
-
-    fechar={()=>setSolicitacao(null)}
-
+    aberto={solicitacaoAberta}
+    fechar={fecharSolicitacao}
     solicitacao={solicitacao}
+
 
     cancelar={() => {
 
@@ -879,7 +897,12 @@ Mostrar mais
     
         );
     
-        setSolicitacao(null);
+        setSolicitacaoAberta(false);
+
+setTimeout(() => {
+    setSolicitacao(null);
+}, 300);
+
     
         mostrarToast({
     
@@ -892,12 +915,10 @@ Mostrar mais
 />
 
 <ConsultaConfirmadaModal
-
-    aberto={consultaConfirmada !== null}
-
-    fechar={() => setConsultaConfirmada(null)}
-
+    aberto={consultaConfirmadaAberta}
+    fechar={fecharConsultaConfirmada}
     consulta={consultaConfirmada}
+
 
     aberturas={aberturasConsulta}
 
@@ -937,7 +958,12 @@ Mostrar mais
 
         );
 
-        setConsultaConfirmada(null);
+        setConsultaConfirmadaAberta(false);
+
+        setTimeout(() => {
+            setConsultaConfirmada(null);
+        }, 300);
+        
 
     }}
 

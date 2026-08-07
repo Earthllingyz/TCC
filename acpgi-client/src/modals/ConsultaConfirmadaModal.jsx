@@ -1,5 +1,8 @@
 import "../styles/ConsultaConfirmadaModal.css";
 import { useNavigate } from "react-router-dom";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
+
 
 function ConsultaConfirmadaModal({
     aberto,
@@ -11,9 +14,11 @@ function ConsultaConfirmadaModal({
 
     const navigate = useNavigate();
 
-    if (!aberto || !consulta) return null;
+    if (!consulta) return null;
 
     return (
+
+        <ModalAnimado aberto={aberto}>
 
         <div
             className="modal-overlay"
@@ -82,30 +87,26 @@ function ConsultaConfirmadaModal({
 
                                 <button
     onClick={() => {
-
         const dados = {
             estudanteId: consulta.estudanteId,
             dia: consulta.dia,
             horario: consulta.horario
         };
-
-        console.log("SALVANDO:", dados);
-
+    
         localStorage.setItem(
             "consultaConfirmada",
             JSON.stringify(dados)
         );
-
-        console.log(
-            "LOCALSTORAGE:",
-            localStorage.getItem("consultaConfirmada")
-        );
-
-        navigate(
-            `/chat/${consulta.estudanteId}?dia=${consulta.dia}&horario=${consulta.horario}`
-        );
-
+    
+        fechar();
+    
+        setTimeout(() => {
+            navigate(
+                `/chat/${consulta.estudanteId}?dia=${consulta.dia}&horario=${consulta.horario}`
+            );
+        }, 300);
     }}
+    
 >
     💬 Chat
 </button>
@@ -119,6 +120,8 @@ function ConsultaConfirmadaModal({
             </div>
 
         </div>
+
+        </ModalAnimado>
 
     );
 

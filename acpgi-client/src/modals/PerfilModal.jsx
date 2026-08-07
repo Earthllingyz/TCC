@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function PerfilModal({
   aberto,
@@ -7,9 +9,10 @@ function PerfilModal({
 
   const navigate = useNavigate();
 
-  if (!aberto) return null;
-
   return (
+
+    <ModalAnimado aberto={aberto}>
+
     <div
       className="modal-overlay"
       onClick={fechar}
@@ -43,6 +46,9 @@ function PerfilModal({
 
       </div>
     </div>
+
+    </ModalAnimado>
+
   );
 }
 

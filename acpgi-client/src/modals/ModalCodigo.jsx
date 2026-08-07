@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function ModalCodigo({
   aberto,
@@ -54,8 +56,6 @@ function ModalCodigo({
     
     }, [aberto]);
 
-  if (!aberto) return null;
-
   const verificar = () => {
 
     if (
@@ -81,6 +81,8 @@ function ModalCodigo({
   };
 
   return (
+
+    <ModalAnimado aberto={aberto}>
 
     <div
       className="modal-overlay"
@@ -164,6 +166,8 @@ function ModalCodigo({
       </div>
 
     </div>
+
+    </ModalAnimado>
 
   );
 }

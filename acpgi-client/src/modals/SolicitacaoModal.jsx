@@ -1,4 +1,6 @@
 import "../styles/SolicitacaoModal.css";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function SolicitacaoModal({
     aberto,
@@ -7,13 +9,13 @@ function SolicitacaoModal({
     cancelar
 }) {
 
-
-    if(!aberto){
+    if (!solicitacao) {
         return null;
     }
 
-
     return (
+
+        <ModalAnimado aberto={aberto}>
 
         <div
     className="solicitacao-overlay"
@@ -116,6 +118,8 @@ function SolicitacaoModal({
 
 
         </div>
+
+        </ModalAnimado>
 
     );
 

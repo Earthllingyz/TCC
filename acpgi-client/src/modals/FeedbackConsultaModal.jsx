@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../styles/FeedbackConsultaModal.css";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function FeedbackConsultaModal({
     aberto,
@@ -10,8 +12,6 @@ function FeedbackConsultaModal({
 
     const [estrelas, setEstrelas] = useState(0);
     const [comentario, setComentario] = useState("");
-
-    if (!aberto) return null;
 
     function enviar() {
 
@@ -30,6 +30,8 @@ function FeedbackConsultaModal({
     }
 
     return (
+
+        <ModalAnimado aberto={aberto}>
 
         <div className="modal-overlay">
 
@@ -99,6 +101,8 @@ function FeedbackConsultaModal({
             </div>
 
         </div>
+
+        </ModalAnimado>
 
     );
 

@@ -1,3 +1,6 @@
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
+
 function ModalMetodoSenha({
   aberto,
   fechar,
@@ -5,9 +8,9 @@ function ModalMetodoSenha({
   abrirCodigoSms
 }) {
 
-  if (!aberto) return null;
-
   return (
+
+    <ModalAnimado aberto={aberto}>
 
     <div
       className="modal-overlay"
@@ -62,6 +65,8 @@ function ModalMetodoSenha({
       </div>
 
     </div>
+
+</ModalAnimado>
 
   );
 }

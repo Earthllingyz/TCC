@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function ModalEditarNome({
   aberto,
@@ -44,8 +46,6 @@ function ModalEditarNome({
     }
 
   }, [aberto]);
-
-  if (!aberto) return null;
 
   const salvar = () => {
 
@@ -106,6 +106,8 @@ function ModalEditarNome({
   };
 
   return (
+
+    <ModalAnimado aberto={aberto}>
 
     <div
       className="modal-overlay"
@@ -211,6 +213,8 @@ function ModalEditarNome({
       </div>
 
     </div>
+
+    </ModalAnimado>
 
   );
 }

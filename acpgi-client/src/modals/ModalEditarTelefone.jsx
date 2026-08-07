@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function ModalEditarTelefone({
   aberto,
@@ -73,8 +75,6 @@ function ModalEditarTelefone({
     
     }, [aberto]);
 
-  if (!aberto) return null;
-
   const salvar = () => {
 
     let valido = true;
@@ -133,6 +133,8 @@ if (telefoneLimpo.length !== 11) {
   };
 
   return (
+
+    <ModalAnimado aberto={aberto}>
     <div
       className="modal-overlay"
       onClick={fechar}
@@ -284,6 +286,9 @@ if (telefoneLimpo.length !== 11) {
 
       </div>
     </div>
+
+    </ModalAnimado>
+
   );
 }
 

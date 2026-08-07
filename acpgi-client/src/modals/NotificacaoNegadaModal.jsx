@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import StudentCard from "../components/StudentCard";
 import "../styles/NotificacaoNegadaModal.css";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function NotificacaoNegadaModal({
     aberto,
@@ -13,6 +15,8 @@ function NotificacaoNegadaModal({
     if(!aberto || !notificacao) return null;
 
     return(
+
+        <ModalAnimado aberto={aberto}>
 
         <div
             className="modal-overlay"
@@ -100,6 +104,8 @@ Horário:
             </div>
 
         </div>
+
+        </ModalAnimado>
 
     );
 

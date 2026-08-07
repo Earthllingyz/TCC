@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/FiltroModal.css";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function FiltroModal({
   aberto,
@@ -23,8 +25,6 @@ function FiltroModal({
 
   }, [aberto]);
 
-  if (!aberto) return null;
-
   function alterarDia(dia){
 
     if(filtros.dias.includes(dia)){
@@ -46,6 +46,9 @@ function FiltroModal({
   }
 
   return (
+
+    <ModalAnimado aberto={aberto}>
+
     <div
   className="modal-overlay"
   onClick={fechar}
@@ -202,6 +205,9 @@ function FiltroModal({
         params.set("pesquisa", pesquisa);
     }
 
+    fechar();
+
+setTimeout(() => {
     navigate(
         `/resultados?${params.toString()}`,
         {
@@ -210,8 +216,7 @@ function FiltroModal({
             }
         }
     );
-
-    fechar();
+}, 300);
 
 }}
 >
@@ -221,42 +226,38 @@ function FiltroModal({
 <button
     className="limpar-btn"
     onClick={() => {
+        const filtrosLimpos = {
+            faculdade: "",
+            avaliacao: 1,
+            genero: "Todos",
+            dias: []
+        };
 
-      const filtrosLimpos = {
-  
-          faculdade: "",
-          avaliacao: 1,
-          genero: "Todos",
-          dias: []
-  
-      };
-  
-      setFiltros(filtrosLimpos);
-  
-      navigate(
-  
-          `/resultados?pesquisa=${new URLSearchParams(window.location.search).get("pesquisa") || ""}`,
-  
-          {
-  
-              state: {
-  
-                  filtros: filtrosLimpos
-  
-              }
-  
-          }
-  
-      );
-  
-      fechar();
-  
-  }}
+        setFiltros(filtrosLimpos);
+
+        const pesquisa =
+            new URLSearchParams(window.location.search)
+                .get("pesquisa") || "";
+
+        // Primeiro inicia a animação de saída
+        fechar();
+
+        // Depois muda de tela
+        setTimeout(() => {
+            navigate(
+                `/resultados?pesquisa=${pesquisa}`,
+                {
+                    state: {
+                        filtros: filtrosLimpos
+                    }
+                }
+            );
+        }, 300);
+    }}
 >
-
     Limpar filtros
-
 </button>
+
 
   </div>
 
@@ -265,6 +266,8 @@ function FiltroModal({
       </div>
 
     </div>
+
+</ModalAnimado>
   );
 }
 

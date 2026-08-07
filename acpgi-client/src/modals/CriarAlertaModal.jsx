@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/CriarAlertaModal.css";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 function CriarAlertaModal({ aberto, fechar }) {
 
@@ -18,8 +20,6 @@ function CriarAlertaModal({ aberto, fechar }) {
   const [diasSelecionados, setDiasSelecionados] = useState({});
   const [horarioAtual, setHorarioAtual] = useState({});
 
-  if (!aberto) return null;
-
   const diasSemana = [
     "Segunda",
     "Terça",
@@ -31,6 +31,8 @@ function CriarAlertaModal({ aberto, fechar }) {
   ];
 
   return (
+
+    <ModalAnimado aberto={aberto}>
     <div
   className="modal-overlay"
   onClick={fechar}
@@ -193,6 +195,8 @@ function CriarAlertaModal({ aberto, fechar }) {
         </div>
       </div>
     </div>
+
+    </ModalAnimado>
   );
 }
 

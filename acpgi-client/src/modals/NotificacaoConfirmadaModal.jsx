@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import StudentCard from "../components/StudentCard";
 import "../styles/NotificacaoConfirmadaModal.css";
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
 
 
 function NotificacaoConfirmadaModal({
@@ -24,6 +26,8 @@ return null;
 
 
 return(
+
+    <ModalAnimado aberto={aberto}>
 
 <div
 
@@ -140,6 +144,7 @@ fechar();
 
 </div>
 
+</ModalAnimado>
 
 );
 

@@ -1,11 +1,15 @@
+import ModalAnimado from "./ModalAnimado";
+import "../styles/ModalAnimado.css";
+
 function NotificacoesModal({
     aberto,
     fechar
   }) {
   
-    if (!aberto) return null;
-  
     return (
+
+      <ModalAnimado aberto={aberto}>
+
       <div
         className="modal-overlay"
         onClick={fechar}
@@ -23,6 +27,9 @@ function NotificacoesModal({
           </p>
         </div>
       </div>
+
+</ModalAnimado>
+
     );
   }
   

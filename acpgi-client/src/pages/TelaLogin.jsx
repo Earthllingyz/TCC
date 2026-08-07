@@ -39,6 +39,13 @@ const [erroFormulario,
       setErroFormulario("Preencha a senha.");
       return;
     }
+
+    if (senha.length < 6) {
+      setErroFormulario(
+          "Sua senha possui menos de 6 caracteres."
+      );
+      return;
+  }
   
     if (tipoUsuario === "cliente") {
       localStorage.clear();

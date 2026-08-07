@@ -5,6 +5,7 @@ import {
 import estudantes from "../data/Estudantes";
 import { useState, useEffect, useRef } from "react";
 import "../styles/ChatConsulta.css";
+import { FaFlag } from "react-icons/fa";
 
 function ChatConsulta(){
 
@@ -45,6 +46,10 @@ function ChatConsulta(){
 
     const [toast, setToast] = useState(null);
 
+    const [abrirDenuncia, setAbrirDenuncia] = useState(false);
+
+const [motivoDenuncia, setMotivoDenuncia] = useState("");
+
     const [toastSaindo,setToastSaindo]=useState(false);
 
     const toastTimeout = useRef(null);
@@ -74,6 +79,10 @@ function voltar(){
     localStorage.setItem(
         `mensagensChat_${id}`,
         JSON.stringify(mensagens)
+    );
+
+    console.log(
+        JSON.parse(localStorage.getItem("consultaEmChat"))
     );
 
 
@@ -196,132 +205,128 @@ const [segundos, setSegundos] = useState(() => {
     
     },[mensagens,id]);
 
-    function solicitarMaisTempo(){
+    function solicitarMaisTempo() {
 
-
-        mostrarToastChat({
-
-            tipo:"sucesso",
-        
-            texto:"Solicitação de mais tempo enviada"
-        
-        });
-        
-        setTimeout(()=>{
-        
-            setToastSaindo(true);
-        
-        },2600);
-        
-        setTimeout(()=>{
-        
-            mostrarToastChat({
-        
-                tipo:"mais",
-        
-                texto:"+30 minutos concedidos"
-        
-            });
-        
-            setMaisTrinta(true);
-        
-            setSegundos(s=>s+1800);
-        
-            setTimeout(()=>{
-        
-                setMaisTrinta(false);
-        
-            },1500);
-        
-        },3000);
+        mostrarToastChat(
+            {
+                tipo: "sucesso",
+                texto: "Solicitação de mais tempo enviada"
+            },
     
+            () => {
     
-    }
-
-    function encerrarChat(){
-
-        mostrarToastChat({
-
-            tipo:"sucesso",
-        
-            texto:"Solicitação de encerramento enviada"
-        
-        });
-
-        setTimeout(()=>{
-
-            setToastSaindo(true);
-        
-        },2600);
+                mostrarToastChat(
+                    {
+                        tipo: "negado",
+                        texto: "Solicitação de mais tempo negada"
+                    },
     
-        setTimeout(()=>{
-
-            mostrarToastChat({
-
-                tipo:"encerrado",
-            
-                texto:"Consulta encerrada"
-            
-            });
-        
-        },3000);
+                    () => {
     
-        setTimeout(()=>{
-
-            console.log({
-                estudanteId:Number(id),
-                dia:new URLSearchParams(window.location.search).get("dia"),
-                horario:new URLSearchParams(window.location.search).get("horario")
-            });
-
-            console.log({
-                estudanteId: Number(id),
-                dia: new URLSearchParams(window.location.search).get("dia"),
-                horario: new URLSearchParams(window.location.search).get("horario")
-            });
+                        mostrarToastChat(
+                            {
+                                tipo: "mais",
+                                texto: "+30 minutos concedidos"
+                            },
     
-            localStorage.setItem(
-                "consultaEncerrada",
-                JSON.stringify({
-                    estudanteId: Number(id),
-                    dia: new URLSearchParams(window.location.search).get("dia"),
-                    horario: new URLSearchParams(window.location.search).get("horario")
-                })
-            );
-            
-            localStorage.removeItem(`chatTempo_${id}`);
-            
-            navigate(-1);
+                            () => {
     
-        },5500);
+                                setMaisTrinta(true);
+    
+                                setSegundos(s => s + 1800);
+    
+                                setTimeout(() => {
+    
+                                    setMaisTrinta(false);
+    
+                                }, 1500);
+    
+                            }
+                        );
+    
+                    }
+                );
+    
+            }
+        );
     
     }
 
-    function mostrarToastChat(dados){
+    function encerrarChat() {
 
-        if(toastTimeout.current){
+        mostrarToastChat(
+            {
+                tipo: "sucesso",
+                texto: "Solicitação de encerramento enviada"
+            },
     
+            () => {
+    
+                mostrarToastChat(
+                    {
+                        tipo: "negado",
+                        texto: "Solicitação de encerramento negada"
+                    },
+    
+                    () => {
+    
+                        mostrarToastChat(
+                            {
+                                tipo: "encerrado",
+                                texto: "Consulta encerrada"
+                            },
+    
+                            () => {
+    
+                                localStorage.setItem(
+                                    "consultaEncerrada",
+                                    JSON.stringify({
+                                        estudanteId: Number(id),
+                                        dia: new URLSearchParams(window.location.search).get("dia"),
+                                        horario: new URLSearchParams(window.location.search).get("horario")
+                                    })
+                                );
+    
+                                localStorage.removeItem(`chatTempo_${id}`);
+    
+                                navigate(-1);
+    
+                            }
+                        );
+    
+                    }
+                );
+    
+            }
+        );
+    
+    }
+
+    function mostrarToastChat(dados, aoFinal) {
+
+        if (toastTimeout.current) {
             clearTimeout(toastTimeout.current);
-    
         }
     
         setToastSaindo(false);
-    
         setToast(dados);
     
-        toastTimeout.current=setTimeout(()=>{
+        toastTimeout.current = setTimeout(() => {
     
             setToastSaindo(true);
     
-            setTimeout(()=>{
+            setTimeout(() => {
     
                 setToast(null);
-    
                 setToastSaindo(false);
     
-            },350);
+                if (aoFinal) {
+                    aoFinal();
+                }
     
-        },4700);
+            }, 350);
+    
+        }, 4700);
     
     }
 
@@ -352,8 +357,9 @@ onClick={()=>setToast(null)}
 
 </button>
 
-{
+<span>
 
+{
 toast.tipo==="negado"
 
 ? "❌ "
@@ -371,6 +377,8 @@ toast.tipo==="negado"
 }
 
 {toast.texto}
+
+</span>
 
 </div>
 
@@ -449,22 +457,108 @@ toast.tipo==="negado"
 
 {mensagens.map((msg, index) => (
 
-    <div
-        key={index}
-        className={
-            msg.tipo === "estudante"
-                ? "msg-estudante"
-                : "msg-paciente"
-        }
-    >
+<div
+    key={index}
+    className={
+        msg.tipo === "estudante"
+            ? "msg-estudante"
+            : "msg-paciente"
+    }
+>
 
-        {msg.texto}
+    {msg.texto}
 
-    </div>
+    {msg.tipo === "estudante" && (
+
+        <button
+            className="btn-denunciar"
+            onClick={() => {
+
+                setMotivoDenuncia("");
+
+                setAbrirDenuncia(true);
+
+            }}
+        >
+
+            <FaFlag />
+
+        </button>
+
+    )}
+
+</div>
 
 ))}
 
 </div>
+
+{
+
+abrirDenuncia && (
+
+<div
+    className="modal-overlay"
+    onClick={() => setAbrirDenuncia(false)}
+>
+
+    <div
+        className="modal-content"
+        onClick={(e) => e.stopPropagation()}
+    >
+
+        <div className="modal-header">
+
+            <h2>Processo de denúncia</h2>
+
+            <button
+                className="close-btn"
+                onClick={() => setAbrirDenuncia(false)}
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div className="modal-body">
+
+            <p>
+                Por que deseja denunciar essa mensagem?
+            </p>
+
+            <div className="denuncia-acoes">
+
+    <textarea
+        value={motivoDenuncia}
+        onChange={(e)=>setMotivoDenuncia(e.target.value)}
+        placeholder="Descreva o motivo"
+    />
+
+    <button
+        className="publicar-btn"
+        onClick={() => {
+
+            setAbrirDenuncia(false);
+
+            mostrarToastChat({
+                tipo: "encerrado",
+                texto: "Denúncia sob análise"
+            });
+
+        }}
+    >
+        Enviar
+    </button>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
 
             <div className="chat-input">
 

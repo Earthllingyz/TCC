@@ -83,13 +83,31 @@ function ConsultaConfirmadaModal({
                                 <button
     onClick={() => {
 
+        const dados = {
+            estudanteId: consulta.estudanteId,
+            dia: consulta.dia,
+            horario: consulta.horario
+        };
+
+        console.log("SALVANDO:", dados);
+
+        localStorage.setItem(
+            "consultaConfirmada",
+            JSON.stringify(dados)
+        );
+
+        console.log(
+            "LOCALSTORAGE:",
+            localStorage.getItem("consultaConfirmada")
+        );
+
         navigate(
             `/chat/${consulta.estudanteId}?dia=${consulta.dia}&horario=${consulta.horario}`
         );
-    
+
     }}
 >
-💬 Chat
+    💬 Chat
 </button>
 
                             </>

@@ -1,6 +1,8 @@
 import "../styles/cadastro.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ModalSolicitacaoConta
+from "../modals/ModalSolicitacaoConta";
 
 function Cadastro() {
 
@@ -29,6 +31,9 @@ const [erros, setErros] = useState({});
 const [erroFormulario,
   setErroFormulario] =
   useState("");
+
+  const [abrirModalSolicitacao, setAbrirModalSolicitacao] =
+useState(false);
 
   const navigate = useNavigate();
 
@@ -130,7 +135,7 @@ setErros({});
         novosErros.periodo = "Informe o período.";
     
       if (!sexo)
-        novosErros.sexo = "Selecione o sexo.";
+        novosErros.sexo = "Selecione o gênero.";
     
       if (!arquivo)
         novosErros.arquivo = "Envie a declaração.";
@@ -154,17 +159,17 @@ return;
 
 }
 
-  if (tipo === "cliente") {
+if (tipo === "cliente") {
 
-    localStorage.setItem("logado", "true");
+  localStorage.setItem("logado", "true");
 
-    navigate("/dashboard-cliente");
-  } else {
+  navigate("/dashboard-cliente");
 
-    localStorage.setItem("logado", "true");
+} else {
 
-    navigate("/dashboard-estudante");
-  }
+  setAbrirModalSolicitacao(true);
+
+}
 };
 
   return (
@@ -478,6 +483,13 @@ erroFormulario &&
           </button>
 
         </form>
+
+        <ModalSolicitacaoConta
+  aberto={abrirModalSolicitacao}
+  fechar={() =>
+    setAbrirModalSolicitacao(false)
+  }
+/>
 
       </div>
 

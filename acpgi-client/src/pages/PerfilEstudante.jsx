@@ -9,6 +9,7 @@ import RatingStars from "../components/RatingStars";
 import "../styles/PerfilEstudante.css";
 import SolicitacaoModal from "../modals/SolicitacaoModal";
 import ConsultaConfirmadaModal from "../modals/ConsultaConfirmadaModal";
+import FeedbackConsultaModal from "../modals/FeedbackConsultaModal";
 
 function PerfilEstudante() {
 
@@ -21,6 +22,8 @@ const diaNegado = query.get("negado");
 const horarioNegado = query.get("horario");
 
 const diaConfirmado = query.get("confirmado");
+
+const horarioConfirmado = query.get("horario");
 
     const navigate = useNavigate();
 
@@ -39,6 +42,8 @@ const [aberturasConsulta, setAberturasConsulta] = useState(0);
     const [mostrarTodosFeedbacks, setMostrarTodosFeedbacks] = useState(false);
 
     const toastTimeout = useRef(null);
+
+    const [feedbackConsulta, setFeedbackConsulta] = useState(null);
 
   const estudante = estudantes.find(
     (e) => e.id === Number(id)
@@ -75,56 +80,109 @@ useEffect(() => {
 
 useEffect(() => {
 
-    const chat = JSON.parse(
-        localStorage.getItem("consultaEmChat")
+    const encerrada = JSON.parse(
+        localStorage.getItem("consultaEncerrada")
     );
 
     if (
-        chat &&
-        chat.estudanteId === estudante.id
+        encerrada &&
+        encerrada.estudanteId === estudante.id
     ) {
 
-        setAgenda(prev =>
-
-            prev.map(dia => ({
-
-                ...dia,
-
-                horarios: dia.horarios.map(horario => {
-
-                    if (
-
-                        dia.dia === chat.dia &&
-
-                        horario.das === chat.das &&
-
-                        horario.ate === chat.ate
-
-                    ) {
-
-                        return {
-
-                            ...horario,
-
-                            status: "emChat"
-
-                        };
-
-                    }
-
-                    return horario;
-
-                })
-
-            }))
-
-        );
-
-        localStorage.removeItem("consultaEmChat");
+        setFeedbackConsulta(encerrada);
 
     }
 
-}, []);
+}, [location]);
+
+useEffect(() => {
+
+    if (!diaConfirmado || !horarioConfirmado) {
+        return;
+    }
+
+    setAgenda(prev =>
+
+        prev.map(dia => ({
+
+            ...dia,
+
+            horarios: dia.horarios.map(horario => {
+
+                const texto =
+                    `${horario.das} às ${horario.ate}`;
+
+                    if (
+                        dia.dia === diaConfirmado &&
+                        texto === horarioConfirmado
+                    ) {
+                    
+                        const consultaEmChat = JSON.parse(
+                            localStorage.getItem("consultaEmChat")
+                        );
+
+                        console.log("consultaEmChat:", consultaEmChat);
+                        
+                        const emChat =
+                            consultaEmChat &&
+                            consultaEmChat.estudanteId === estudante.id &&
+                            consultaEmChat.dia === dia.dia &&
+                            consultaEmChat.das === horario.das &&
+                            consultaEmChat.ate === horario.ate;
+                        
+                        return {
+                            ...horario,
+                            status: emChat ? "emChat" : "confirmado"
+                        };
+                    
+                    }
+
+                return horario;
+
+            })
+
+        }))
+
+    );
+
+}, [diaConfirmado, horarioConfirmado]);
+
+useEffect(() => {
+
+    if (!diaNegado || !horarioNegado) {
+        return;
+    }
+
+    setAgenda(prev =>
+
+        prev.map(dia => ({
+
+            ...dia,
+
+            horarios: dia.horarios.map(horario => {
+
+                const texto = `${horario.das} às ${horario.ate}`;
+
+                if (
+                    dia.dia === diaNegado &&
+                    texto === horarioNegado
+                ) {
+                    return {
+                        ...horario,
+                        status: "negado"
+                    };
+                }
+
+                return horario;
+
+            })
+
+        }))
+
+    );
+
+}, [diaNegado, horarioNegado]);
+
   if (!estudante) {
 
     return <h2>Estudante não encontrado.</h2>;
@@ -146,6 +204,25 @@ useEffect(() => {
         setToast(null);
 
     }, 5000);
+
+}
+
+function enviarFeedback(feedback) {
+
+    console.log("Feedback enviado:", {
+        estudanteId: estudante.id,
+        estudante: estudante.nome,
+        estrelas: feedback.estrelas,
+        comentario: feedback.comentario
+    });
+
+    localStorage.removeItem("consultaEncerrada");
+
+    setFeedbackConsulta(null);
+
+    mostrarToast({
+        feedbackEnviado: true
+    });
 
 }
 
@@ -214,53 +291,48 @@ function limparAgendaConsultaEncerrada() {
 
         const novaAgenda = agendaAtual
             .map((dia) => {
-
+    
                 const indiceDia = ordemDias.indexOf(dia.dia);
-
-                // Dias anteriores desaparecem
+    
                 if (indiceDia < indiceDiaConsulta) {
                     return null;
                 }
-
-                // Dia da consulta
+    
                 if (indiceDia === indiceDiaConsulta) {
-
+    
                     const horariosRestantes = dia.horarios.filter((horario) => {
-
+    
                         const texto = `${horario.das} às ${horario.ate}`;
-
-                        // remove o horário encerrado
+    
                         if (texto === encerrada.horario) {
                             return false;
                         }
-
+    
                         const horaConsulta = encerrada.horario.split(" às ")[0];
-
-return horario.das > horaConsulta;
+    
+                        return horario.das > horaConsulta;
+    
                     });
-
+    
                     if (horariosRestantes.length === 0) {
                         return null;
                     }
-
+    
                     return {
                         ...dia,
                         horarios: horariosRestantes
                     };
                 }
-
-                // Dias posteriores permanecem
+    
                 return dia;
             })
             .filter(Boolean);
-
+    
         setAgendaVazia(novaAgenda.length === 0);
-
+    
         return novaAgenda;
-
+    
     });
-
-    localStorage.removeItem("consultaEncerrada");
 }
 
 
@@ -375,12 +447,14 @@ className="toast-solicitacao"
 
 onClick={() => {
 
-    if (toast.negado) {
+    if (
+        toast.negado ||
+        toast.feedbackEnviado
+    ) {
 
         return;
 
     }
-
 
     if (!toast.cancelado) {
 
@@ -391,6 +465,7 @@ onClick={() => {
     }
 
 }}
+
 
 >
 
@@ -423,13 +498,14 @@ onClick={(e)=>{
 
 <div className="toast-texto">
 
-
 {
-toast.negado
-  ? "❌ Solicitação negada"
-  : toast.cancelado
-  ? "❌ Solicitação cancelada"
-  : "✅ Consulta solicitada"
+    toast.feedbackEnviado
+        ? "✅ Feedback enviado com sucesso!"
+        : toast.negado
+        ? "❌ Solicitação negada"
+        : toast.cancelado
+        ? "❌ Solicitação cancelada"
+        : "✅ Consulta solicitada"
 }
 
 
@@ -866,6 +942,25 @@ Mostrar mais
     }}
 
 />
+
+<FeedbackConsultaModal
+
+    aberto={feedbackConsulta !== null}
+
+    estudante={estudante.nome}
+
+    enviarFeedback={enviarFeedback}
+
+    fechar={() => {
+
+        localStorage.removeItem("consultaEncerrada");
+
+        setFeedbackConsulta(null);
+
+    }}
+
+/>
+
         </div>
 
 </>

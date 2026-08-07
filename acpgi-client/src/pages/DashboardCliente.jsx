@@ -166,7 +166,7 @@ const estudantesRecomendados = estudantes.filter((estudante) => {
     fechar={() => setAbrirFiltro(false)}
     filtros={filtros}
     setFiltros={setFiltros}
-/>har={() => setAbrirFiltro(false)}
+/>
 
     </div>
   );

@@ -111,3 +111,72 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+
+/* =========================================
+   ANIMAÇÃO DOS MODAIS
+   ========================================= */
+
+   .modal-overlay {
+    animation: modalOverlayEntrada 0.25s ease;
+}
+
+.modal-content {
+    animation: modalEntrada 0.3s ease;
+}
+
+
+/* Entrada do fundo */
+@keyframes modalOverlayEntrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Entrada do modal */
+@keyframes modalEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   SCROLL PERSONALIZADO DOS MODAIS
+   ========================================= */
+
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+/* Firefox */
+
+.modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}

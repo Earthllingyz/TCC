@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function ModalEditarSenha({
   aberto,
   fechar,
+  senhaAtual,
   setSenha
 }) {
 
@@ -46,13 +47,24 @@ function ModalEditarSenha({
     setErroConfirmacao("");
 
     if (
-      novaSenha.length < 5
+      novaSenha.length < 6
     ) {
-
+    
       setErroSenha(
-        "Mínimo de 5 caracteres."
+        "Mínimo de 6 caracteres."
       );
+    
+      valido = false;
+    }
 
+    if (
+      novaSenha === senhaAtual
+    ) {
+    
+      setErroSenha(
+        "A nova senha deve ser diferente da senha atual."
+      );
+    
       valido = false;
     }
 
@@ -126,9 +138,9 @@ function ModalEditarSenha({
             }
           />
 
-          <small>
-            Mínimo de 5 caracteres
-          </small>
+<small>
+  Mínimo de 6 caracteres
+</small>
 
           {
             erroSenha &&

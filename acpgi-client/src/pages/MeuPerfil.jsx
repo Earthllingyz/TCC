@@ -290,10 +290,18 @@ function MeuPerfil() {
     }
   
     if (tipoAcao === "senha") {
+
+      if (tipoSenha === "visualizar") {
   
-      setAbrirEditarSenha(true);
+          setMostrarSenha(true);
   
-    }
+      } else {
+  
+          setAbrirEditarSenha(true);
+  
+      }
+  
+  }
   
   }}
 />
@@ -386,6 +394,7 @@ function MeuPerfil() {
   fechar={() =>
     setAbrirEditarSenha(false)
   }
+  senhaAtual={senha}
   setSenha={setSenha}
 />
 

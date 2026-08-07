@@ -264,27 +264,33 @@
 
 .toast-chat{
 
-    position:fixed;
+    position: fixed;
 
-    top:20px;
+    top: 20px;
 
-    left:50%;
-    transform:translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
 
-    width:520px;
-    max-width:90vw;
-    min-height:75px;
+    width: 520px;
+    max-width: 90vw;
+    min-height: 75px;
 
-    padding:20px 25px 20px 50px;
+    padding: 20px 45px;
 
-    border-radius:15px;
+    border-radius: 15px;
 
-    font-weight:bold;
+    color: #1f2937;
 
-    z-index:99999;
+    font-weight: bold;
 
-    animation:aparecerToast .4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
+    z-index: 99999;
+
+    animation: aparecerToast .4s ease;
 }
 
 
@@ -384,4 +390,57 @@
 
     }
 
+}
+
+.btn-denunciar{
+
+    background: transparent;
+
+    border: none;
+
+    cursor: pointer;
+
+    margin-left: 10px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 2px;
+
+}
+
+.btn-denunciar svg{
+
+    font-size:18px;
+
+    fill: transparent;
+
+    stroke: #2f80ed;
+
+    stroke-width: 40;
+
+    transition:.2s;
+
+}
+
+.btn-denunciar:hover svg{
+
+    fill: rgba(47,128,237,.08);
+
+}
+
+.denuncia-acoes{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.denuncia-acoes textarea{
+    flex:1;
+}
+
+.denuncia-acoes .publicar-btn{
+    align-self:center;
+    margin-top:0;
 }

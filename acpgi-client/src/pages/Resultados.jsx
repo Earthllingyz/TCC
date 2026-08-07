@@ -139,9 +139,14 @@ const [filtrosAtuais, setFiltrosAtuais] = useState(filtros);
     onFiltroClick={()=>setAbrirFiltro(true)}
 />
 
-      <h2 style={{ margin: "20px" }}>
-        Resultados encontrados
-      </h2>
+<h2
+  style={{
+    margin: "20px",
+    color: "#222"
+  }}
+>
+  Resultados encontrados
+</h2>
 
       <div className="students-grid">
 

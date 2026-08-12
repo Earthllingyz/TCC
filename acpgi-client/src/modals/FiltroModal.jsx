@@ -239,10 +239,8 @@ setTimeout(() => {
             new URLSearchParams(window.location.search)
                 .get("pesquisa") || "";
 
-        // Primeiro inicia a animação de saída
         fechar();
 
-        // Depois muda de tela
         setTimeout(() => {
             navigate(
                 `/resultados?pesquisa=${pesquisa}`,

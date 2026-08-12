@@ -112,11 +112,6 @@ code {
   background: var(--code-bg);
 }
 
-
-/* =========================================
-   ANIMAÇÃO DOS MODAIS
-   ========================================= */
-
    .modal-overlay {
     animation: modalOverlayEntrada 0.25s ease;
 }
@@ -125,8 +120,6 @@ code {
     animation: modalEntrada 0.3s ease;
 }
 
-
-/* Entrada do fundo */
 @keyframes modalOverlayEntrada {
     from {
         opacity: 0;
@@ -137,8 +130,6 @@ code {
     }
 }
 
-
-/* Entrada do modal */
 @keyframes modalEntrada {
     from {
         opacity: 0;
@@ -150,11 +141,6 @@ code {
         transform: translateY(0) scale(1);
     }
 }
-
-
-/* =========================================
-   SCROLL PERSONALIZADO DOS MODAIS
-   ========================================= */
 
 .modal-body::-webkit-scrollbar {
     width: 8px;
@@ -172,9 +158,6 @@ code {
 .modal-body::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
-
-
-/* Firefox */
 
 .modal-body {
     scrollbar-width: thin;
